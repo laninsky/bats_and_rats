@@ -72,17 +72,19 @@ input <- cbind(input,inputtemp[,i])
 }
 }
 
-rm(input)
+rm(inputtemp)
+rm(temp)
 
-
-
-
-no_of_pops <- length(pop_names)
 no_of_loci <- dim(input)[2] -2
 
 allele.counts <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
 sample.sizes <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
 
+
+
+
+
+########## up to here
 
 
 
