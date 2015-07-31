@@ -76,9 +76,33 @@ rm(inputtemp)
 rm(temp)
 
 no_of_loci <- dim(input)[2] -2
+no_of_cols <- dim(input)[2]
 
 allele.counts <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
 sample.sizes <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
+
+rm(no_of_loci)
+
+for (i in 3:no_of_cols) {
+snpcall <- unique(input[,i])
+snpcall[snpcall != "-9"][[1]]
+
+
+
+
+
+
+#########################Up tohere
+
+
+
+
+
+x <- pop_names[1]
+temp <- subset(input[,i],input[,2]==x)
+firstsnp <- temp[1]
+
+if(sum(input[i
 
 
 
