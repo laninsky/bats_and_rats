@@ -1,11 +1,10 @@
-structure_into_bedassle <- function(working_dir,file_name) {
-
 working_dir <- "C:/Users/Alana/Downloads"
 file_name <- "md10mc76p.10gbs.pop.HF.str"
 
-library(stringr)
 
-##############TO ADD: SPECIFY CUSTOM NAMELIST.TXT NAME INSTEAD OF IT HAVING TO BE NAMELIST.TXT
+structure_into_bedassle <- function(working_dir,file_name) {
+
+library(stringr)
 
 # Throwing out error messages if any of the inputs are missing from the command line
 x <- 0
@@ -61,10 +60,31 @@ rm(file_name)
 rm(killswitch)
 rm(working_dir)
 
+inputtemp <- input[order(input[,2]),]
+pop_names <- unique(inputtemp[,2])
+no_of_loci <- dim(inputtemp)[2]
+input <- inputtemp[,1:2]
+
+#Making sure that all the loci included in the matrix are bi-allelic
+for (i in 3:no_of_loci) {
+if(sum((unique(inputtemp[,i])!="-9")==TRUE)==2) {
+input <- cbind(input,inputtemp[,i])
+}
+}
+
+rm(input)
 
 
-pop_names <- unique(inputmatrixdata[,1])
-pop_names <- pop_names[which(pop_names!="outgroup")]
+
+
+no_of_pops <- length(pop_names)
+no_of_loci <- dim(input)[2] -2
+
+allele.counts <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
+sample.sizes <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
+
+
+
 
 output <- t(as.matrix(c("ingroup","outgroup","Allele1",pop_names,"Allele2",pop_names,"locus","SNP")))
 
