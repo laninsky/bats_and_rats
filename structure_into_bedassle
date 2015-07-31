@@ -26,7 +26,7 @@ killswitch <- "yes"
 }
 
 if(x==1) {
-cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.tsv file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\")\n\nSpecific errors/missing inputs:\n")
+cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\")\n\nSpecific errors/missing inputs:\n")
 }
 if(error_one==1) {
 cat("Sorry, I am missing a working directory pathway\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \n\n")
@@ -46,7 +46,7 @@ print(noquote(""))
 flush.console()
 
 #Checking status of structure file
-print(noquote("An error message after this indicates your structure.tsv file is not located in the directory you listed"))
+print(noquote("An error message after this indicates your structure.str file is not located in the directory you listed"))
 flush.console()
 input <- as.matrix(read.table(file_name,sep=""))
 print(noquote("Not to worry, your file IS located in the directory!"))
@@ -71,9 +71,6 @@ if(sum((unique(inputtemp[,i])!="-9")==TRUE)==2) {
 input <- cbind(input,inputtemp[,i])
 }
 }
-
-rm(inputtemp)
-rm(temp)
 
 no_of_loci <- dim(input)[2] -2
 no_of_cols <- dim(input)[2]
