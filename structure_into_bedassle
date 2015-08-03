@@ -1,7 +1,3 @@
-working_dir <- "C:/Users/Alana/Downloads"
-file_name <- "md10mc76p.10gbs.pop.HF.str"
-
-
 structure_into_bedassle <- function(working_dir,file_name) {
 
 library(stringr)
@@ -64,16 +60,19 @@ inputtemp <- input[order(input[,2]),]
 pop_names <- unique(inputtemp[,2])
 no_of_loci <- dim(inputtemp)[2]
 input <- inputtemp[,1:2]
+snp.names <- NULL
 
 #Making sure that all the loci included in the matrix are bi-allelic
 for (i in 3:no_of_loci) {
 if(sum((unique(inputtemp[,i])!="-9")==TRUE)==2) {
 input <- cbind(input,inputtemp[,i])
+snp.names <- cbind(snp.names,i-2)
 }
 }
 
 no_of_loci <- dim(input)[2] -2
 no_of_cols <- dim(input)[2]
+no_of_pops <- length(pop_names)
 
 allele.counts <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
 sample.sizes <- matrix(0,ncol=no_of_loci,nrow=no_of_pops)
@@ -82,283 +81,21 @@ rm(no_of_loci)
 
 for (i in 3:no_of_cols) {
 snpcall <- unique(input[,i])
-snpcall[snpcall != "-9"][[1]]
+snp <- snpcall[snpcall != "-9"][[1]]
 
-
-
-
-
-
-#########################Up tohere
-
-
-
-
-
-x <- pop_names[1]
-temp <- subset(input[,i],input[,2]==x)
-firstsnp <- temp[1]
-
-if(sum(input[i
-
-
-
-
-
-########## up to here
-
-
-
-output <- t(as.matrix(c("ingroup","outgroup","Allele1",pop_names,"Allele2",pop_names,"locus","SNP")))
-
-pop_coordinates <- rbind(inputmatrixdata[2,1],2)
-i <- 2
-
-while (i <= (matrixlength-1)) {
-x <- i+1
-while((x<=(matrixlength-1))&&(inputmatrixdata[i,1]==inputmatrixdata[x,1])) {
-x <- x + 1
-}
-if(x<=(matrixlength-1)){
-pop_coordinate_temp <- rbind(inputmatrixdata[x,1],(x+1))
-pop_coordinates <- cbind(pop_coordinates,pop_coordinate_temp)
-i <- x
-} else {
-i <- matrixlength
+for (j in 1:no_of_pops) {
+temp <- subset(input[,i],input[,2]==pop_names[j])
+allele.counts[j,i-2] <- sum(temp==snp)
+sample.sizes[j,i-2] <- sum(temp!="-9")
 }
 }
 
-inputmatrix <- rbind(inputmatrixheader,inputmatrixdata)
-matrixwidth <- dim(inputmatrix)[2]
-matrixlength <- dim(inputmatrix)[1]
+colnames(allele.counts) <- snp.names
+rownames(allele.counts) <- pop_names
+colnames(sample.sizes) <- snp.names
+rownames(sample.sizes) <- pop_names
 
-no_pops <- dim(pop_coordinates)[2]
+write.table(allele.counts, file="bedassle.allele.counts.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)	
+write.table(sample.sizes, file="bedassle.sample.sizes.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)		
 
-rm(pop_names)
-rm(inputmatrixdata)
-rm(inputmatrixheader)
-rm(pop_coordinate_temp)
-
-print(noquote("We've got the data into a format that we can start manipulating to get the SNP frequencies from"))
-print(noquote(""))
-flush.console()
-
-print(noquote("We've got the data in a format that we can start manipulating to get the SNP frequencies from"))
-print(noquote(""))
-flush.console()
-
-outgroupcol <- which(pop_coordinates[1,]=="outgroup")
-
-# Option one, here we go
-if (opt1=="yes") {
-print(noquote("You've said you'd like to do opt1 - maximizing ingroup data when chosing the SNP from each locus. Here we go with that"))
-print(noquote(""))
-flush.console()
-
-i <- 4
-while (i <= matrixwidth) {
-x <- i+1
-while((x<=matrixwidth)&&(inputmatrix[1,i]==inputmatrix[1,x])) {
-x <- x + 1
 }
-
-if(x<=(matrixwidth+1)){
-y <- i
-j <- 1
-temp <- matrix(0,ncol=(x-i),nrow=6)
-
-while(y < x) {
-temp1 <- matrix(0,ncol=no_pops,nrow=4)
-temp[1,j] <- y
-for (k in 1:no_pops) {
-if(k==no_pops) {
-
-temp1[1,k] <- temp1[1,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,y]==1)
-temp1[2,k] <- temp1[2,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,y]==2)
-temp1[3,k] <- temp1[3,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,y]==3)
-temp1[4,k] <- temp1[4,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,y]==4)
-temp[2,j] <- temp[2,j] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,y]==0)
-} else {
-temp1[1,k] <- temp1[1,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),y]==1)
-temp1[2,k] <- temp1[2,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),y]==2)
-temp1[3,k] <- temp1[3,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),y]==3)
-temp1[4,k] <- temp1[4,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),y]==4)
-temp[2,j] <- temp[2,j] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),y]==0)
-}
-}
-
-sumallele <- matrix(0,ncol=1,nrow=4)
-sumallele[1,1] <- sum(temp1[1,])-temp1[1,outgroupcol]
-sumallele[2,1] <- sum(temp1[2,])-temp1[2,outgroupcol]
-sumallele[3,1] <-  sum(temp1[3,])-temp1[3,outgroupcol]
-sumallele[4,1] <-  sum(temp1[4,])-temp1[4,outgroupcol]
-
-temp[3,j] <- sumallele[1,1]
-temp[4,j] <- sumallele[2,1]
-temp[5,j] <- sumallele[3,1]
-temp[6,j] <- sumallele[4,1]
-
-y <- y+1
-j <- j+1
-}
-
-temp2 <- NULL
-tempwidth <- dim(temp)[2]
-for (m in 1:tempwidth) {
-if (sum(temp[3:6,m]==0)==2) {
-tempster <- rbind(m,as.matrix(temp[,m]))
-temp2 <- cbind(temp2,tempster)
-}
-}
-
-if (!(is.null(temp2))) {
-prop <- 1
-n <- which.min(temp2[3,])
-tempwidth <- dim(temp2)[2]
-if(min(temp2[3,])==max(temp2[3,])) {
-for (m in 1:tempwidth) {
-proptest <- max(temp2[4:7,m])/sum(temp2[4:7,m])
-if (proptest < prop) {
-prop <- proptest
-n <- m
-}
-}
-} else {
-temp3 <- NULL
-if (sum(temp2[3,]==min(temp2[3,]))>1) {
-for (m in 1:tempwidth) {
-if (temp2[3,m]==min(temp2[3,])) {
-tempster <- rbind(as.matrix(temp2[,m]))
-temp3 <- cbind(temp3,tempster)
-}
-}
-temp2 <- temp3
-tempwidth <- dim(temp2)[2]
-if(min(temp2[3,])==max(temp2[3,])) {
-for (m in 1:tempwidth) {
-proptest <- max(temp2[4:7,m])/sum(temp2[4:7,m])
-if (proptest < prop) {
-prop <- proptest
-n <- m
-}
-}
-}
-}
-}
-
-templocus <- inputmatrix[1,temp2[2,n]]
-tempSNP <- temp2[1,n]
-
-temp1 <- matrix(0,ncol=no_pops,nrow=4)
-for (k in 1:no_pops) {
-if(k==no_pops) {
-temp1[1,k] <- temp1[1,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,temp2[2,n]]==1)
-temp1[2,k] <- temp1[2,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,temp2[2,n]]==2)
-temp1[3,k] <- temp1[3,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,temp2[2,n]]==3)
-temp1[4,k] <- temp1[4,k] + sum(inputmatrix[(pop_coordinates[2,k]):matrixlength,temp2[2,n]]==4)
-} else {
-temp1[1,k] <- temp1[1,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),temp2[2,n]]==1)
-temp1[2,k] <- temp1[2,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),temp2[2,n]]==2)
-temp1[3,k] <- temp1[3,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),temp2[2,n]]==3)
-temp1[4,k] <- temp1[4,k] + sum(inputmatrix[(pop_coordinates[2,k]):(as.numeric(pop_coordinates[2,(k+1)])-1),temp2[2,n]]==4)
-}
-}
-
-tempoutgroup <- which.max(temp1[,outgroupcol])
-sumallele <- matrix(0,ncol=1,nrow=4)
-sumallele[1,1] <- sum(temp1[1,])-temp1[1,outgroupcol]
-sumallele[2,1] <- sum(temp1[2,])-temp1[2,outgroupcol]
-sumallele[3,1] <-  sum(temp1[3,])-temp1[3,outgroupcol]
-sumallele[4,1] <-  sum(temp1[4,])-temp1[4,outgroupcol]
-tempmajallele <- which.max(sumallele[,1])
-
-tempallele1 <- t(as.matrix(temp1[tempmajallele,-outgroupcol]))
-
-sumallele[tempmajallele,] <- 0
-tempminallele <- which.max(sumallele[,1])
-tempallele2 <- t(as.matrix(temp1[tempminallele,-outgroupcol]))
-
-toadd <- cbind(tempmajallele,tempoutgroup,tempmajallele,tempallele1,tempminallele,tempallele2,templocus,tempSNP)
-output <- rbind(output,toadd)
-}
-}
-i <- x
-}
-
-rm(i)
-rm(j)
-rm(k)
-rm(m)
-rm(matrixlength)
-rm(matrixwidth)
-rm(n)
-rm(prop)
-rm(proptest)
-rm(sumallele)
-rm(temp)
-rm(temp1)
-rm(temp2)
-rm(temp3)
-rm(tempallele1)
-rm(tempallele2)
-rm(templocus)
-rm(tempmajallele)
-rm(tempminallele)
-rm(tempoutgroup)
-rm(tempSNP)
-rm(tempster)
-rm(tempwidth)
-rm(toadd)
-rm(x)
-rm(y)
-
-outputlength <- dim(output)[1]
-output[2:outputlength,1:2] <- replace(output[2:outputlength,1:2],output[2:outputlength,1:2]==1,"-A-")
-output[2:outputlength,1:2] <- replace(output[2:outputlength,1:2],output[2:outputlength,1:2]==2,"-C-")
-output[2:outputlength,1:2] <- replace(output[2:outputlength,1:2],output[2:outputlength,1:2]==3,"-G-")
-output[2:outputlength,1:2] <- replace(output[2:outputlength,1:2],output[2:outputlength,1:2]==4,"-T-")
-
-output[2:outputlength,3] <- replace(output[2:outputlength,3],output[2:outputlength,3]==1,"A")
-output[2:outputlength,3] <- replace(output[2:outputlength,3],output[2:outputlength,3]==2,"C")
-output[2:outputlength,3] <- replace(output[2:outputlength,3],output[2:outputlength,3]==3,"G")
-output[2:outputlength,3] <- replace(output[2:outputlength,3],output[2:outputlength,3]==4,"T")
-
-output[2:outputlength,(no_pops*2)] <- replace(output[2:outputlength,(no_pops*2)],output[2:outputlength,(no_pops*2)]==1,"A")
-output[2:outputlength,(no_pops*2)] <- replace(output[2:outputlength,(no_pops*2)],output[2:outputlength,(no_pops*2)]==2,"C")
-output[2:outputlength,(no_pops*2)] <- replace(output[2:outputlength,(no_pops*2)],output[2:outputlength,(no_pops*2)]==3,"G")
-output[2:outputlength,(no_pops*2)] <- replace(output[2:outputlength,(no_pops*2)],output[2:outputlength,(no_pops*2)]==4,"T")
-
-write.table(output,"opt1_output.txt", sep="\t",quote=FALSE, row.names=FALSE,col.names=FALSE)
-}
-
-
-
-###########
-
-print(x)
-pop_coordinate_temp <- rbind(inputmatrixdata[x,1],x)
-pop_coordinates <- cbind(pop_coordinates,pop_coordinate_temp)
-i <- x
-} else {
-i <- matrixlength
-}
-}
-
-
-
-
-
-
-while (inputmatrix[1,i]==inputmatrix[1,(i+x)]) {
-x <- x+1
-}
-
-
-
-
-i <- i + x }
-
-
-4:
-
-write.table(temp, "tempout",quote=FALSE, col.names=FALSE,row.names=FALSE)
