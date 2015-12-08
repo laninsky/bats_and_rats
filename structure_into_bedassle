@@ -95,6 +95,7 @@ rownames(allele.counts) <- pop_names
 colnames(sample.sizes) <- snp.names
 rownames(sample.sizes) <- pop_names
 
+write.table(pop_names,"pop_name_record.txt")
 write.table(allele.counts, file="bedassle.allele.counts.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)	
 write.table(sample.sizes, file="bedassle.sample.sizes.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)		
 
