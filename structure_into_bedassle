@@ -29,7 +29,7 @@ killswitch <- "yes"
 }
 
 if(x==1) {
-cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\","0")\n\nSpecific errors/missing inputs:\n")
+cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\",\"0\")\n\nSpecific errors/missing inputs:\n")
 }
 if(error_one==1) {
 cat("Sorry, I am missing a working directory pathway\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \n\n")
@@ -38,7 +38,7 @@ if(error_two==2) {
 cat("Sorry, I am missing a filename for your structure.str file\nfile_name == the name of your structure.str file e.g. \"structure.str.txt\"\n\n")
 }
 if(error_three==3) {
-cat('Sorry, I am missing the value that your missing data will take e.g. "0" or "-9"')
+cat("Sorry, I am missing the value that your missing data will take e.g. \"0\" or \"-9\"")
 }
 
 #Checking status of working directory
