@@ -6,6 +6,7 @@ library(stringr)
 x <- 0
 error_one <- 0
 error_two <- 0
+error_three <- 0
 
 killswitch <- "no"
 
@@ -21,15 +22,14 @@ error_two <- 2
 killswitch <- "yes"
 }
 
-
 if(missing(missing_data)) {
 x <- 1
-error_three <- 2
+error_three <- 3
 killswitch <- "yes"
 }
 
 if(x==1) {
-cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\")\n\nSpecific errors/missing inputs:\n")
+cat("Call the R function by structure_into_bedassle(working_dir,file_name), where:\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \nfile_name == the name of your structure.str file e.g. \"data.structure.str\"\n\nExample of input:\nstructure_into_bedassle(\"C:/Users/Folder/\",\"data.structure.str\","0")\n\nSpecific errors/missing inputs:\n")
 }
 if(error_one==1) {
 cat("Sorry, I am missing a working directory pathway\nworking_dir == pathway to the folder with your structure.str file e.g. \"C:/blahblahblah\" \n\n")
