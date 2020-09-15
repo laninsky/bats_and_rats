@@ -7,6 +7,6 @@ Average length is total `sequence matrix size` divided by this number of loci:
 `1,493,950/16,376 = 91 bp`
 
 Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size`:  
-`1,493,950-33,969 = 1,459,981 bp
+`1,493,950-33,969 = 1,459,981 bp`
 
 
