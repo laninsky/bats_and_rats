@@ -17,5 +17,8 @@ These numbers need to be placed in a file called fastsimcoal_inputs. First line 
 HapFinal.vcf
 ```
 
-Then, make sure the 
+Then, make sure the monomorphic_vcf.R script is in the same directory as your vcf file and the fastsimcoal_inputs file before running the following:
+```
+
+```
 
