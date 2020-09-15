@@ -9,4 +9,4 @@ Average length is total `sequence matrix size` divided by this number of loci:
 Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size`:  
 `1,493,950-33,969 = 1,459,981 bp`
 
-
+These numbers need to be placed in a file called fastsimcoal_inputs. First line is the number of loci, second line the average length in bp, third line the number of monomorphic sites, and final line, the name of the vcf file that will be added to.
