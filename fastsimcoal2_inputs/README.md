@@ -19,6 +19,11 @@ HapFinal.vcf
 
 Then, make sure the monomorphic_vcf.R script is in the same directory as your vcf file and the fastsimcoal_inputs file before running the following:
 ```
-
+filename=`cat fastsimcoal_inputs | head -n 4 | tail -n 1`
+grep "##" $filename > header_row.txt
+headerlineno=`wc -l header_row.txt | awk '{print $1}'`
+headerlineno=$((headerlineno+1))
+tail -n +$headerlineno $filename > temp
+Rscript monomorphic_vcf.R
 ```
 
