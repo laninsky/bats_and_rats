@@ -30,3 +30,6 @@ temp <- as.matrix(temp)
 
 # Binding the invariant rows to the rest of the vcf
 temp <- rbind(temp,output)
+
+# Write out the "new" vcf file
+write.table(temp,"temp",col.names=TRUE,sep="\t",row.names=FALSE,quote=FALSE)
