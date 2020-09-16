@@ -16,3 +16,6 @@ entry_to_duplicate <- as.character(invariant_row[grep("0/0",as.character(invaria
 
 # Duplicating this
 invariant_row[10:length(invariant_row)] <- entry_to_duplicate
+
+# Creating the output
+output <- matrix(invariant_row,nrow=as.numeric(fastsimcoal_inputs[3,1]),ncol=length(invariant_row))
