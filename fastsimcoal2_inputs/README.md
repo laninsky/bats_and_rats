@@ -25,5 +25,6 @@ headerlineno=`wc -l header_row.txt | awk '{print $1}'`
 headerlineno=$((headerlineno+1))
 tail -n +$headerlineno $filename > temp
 Rscript monomorphic_vcf.R
+cat header_row.txt temp >> vcf_w_monomorphic.vcf
 ```
 
