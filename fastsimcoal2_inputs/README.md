@@ -23,3 +23,45 @@ tail -n +$headerlineno $filename > temp
 Rscript monomorphic_vcf.R
 cat header_row.txt temp >> vcf_w_monomorphic.vcf
 ```
+
+Using this modified vcf file and the popfile (snippet below), we then use easySFS to generate the SFS. We run it twice, once profiling the vcf in order to assess the appropriate downprojection, and then generating the outfiles using the appropriate downprojection that maximizes the number of segregating sites.
+```
+#!/bin/bash -e
+#SBATCH -A uoo03004
+#SBATCH -J easySFS 
+#SBATCH --time 12:00:00
+#SBATCH -N 1
+#SBATCH -c 1
+#SBATCH -n 1
+#SBATCH --mem=10GB
+#SBATCH --chdir=/nesi/nobackup/uoo03004/bats_rats
+
+module load Miniconda3/4.8.2
+
+#conda create -n easySFS
+source /nesi/nobackup/uoo00105/chickadees/bin/miniconda3/etc/profile.d/conda.sh 
+conda activate easySFS
+conda install -c bioconda dadi pandas
+#git clone https://github.com/isaacovercast/easySFS.git
+#cd easySFS
+#chmod 777 easySFS.py
+
+# This initial code suggested downprojecting to 42 for S, and 12 for N
+# would maximize the number of segregating sites
+# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
+
+easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
+```
+Hap_Popfile.txt snippet:
+```
+JAE1726 S
+JAE1727 S
+JAE1728 S
+JAE1734 S
+JAE1752 S
+JAE1755 S
+JAE1758 S
+JAE1760 S
+JAE1780 N
+JAE1782 N
+```
