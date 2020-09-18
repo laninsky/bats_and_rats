@@ -5,7 +5,7 @@ library(tidyverse)
 likelihoods <- read_tsv("likelihoods.txt",col_names=FALSE)
 
 # Reading in est file to modify
-est_file_name <- list.files(pattern=".est")
+est_file_name <- list.files(pattern=".est$")
 temp_est <- readLines(est_file_name)
 
 # Updating $NPOP1$
