@@ -40,3 +40,9 @@ for i in fastsimcoal_*; do lineno=`wc -l $i/*/*.brent_lhoods | awk '{print $1}'`
 sort -rnk 14 temp > likelihoods.txt
 rm temp
 ```
+We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on:
+```
+```
+If this is the case, we will also generate a new est file based on the parameter estimates across the previous 50 runs:
+```
+``
