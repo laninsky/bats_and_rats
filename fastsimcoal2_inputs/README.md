@@ -69,4 +69,42 @@ Downprojection reduces the total number of sites in the output SFS, so to work o
 ```
 head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | awk '{n += $1}; END{print n}'
 ```
-The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to 89).
+The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to `89`).
+
+Based on these values, this is the tpl file generated:
+```
+//Parameters for the coalescence simulation program : fastsimcoal.exe
+2 samples to simulate :
+//Population effective sizes (number of genes)
+$NPOP1$
+$NPOP2$
+//Samples sizes and samples age
+42
+12
+//Growth rates : negative growth implies population expansion
+0
+0
+//Number of migration matrices : 0 implies no migration between demes
+3
+//Migration matrix 0
+0 $MIG$
+$MIG$ 0
+//Migration matrix 1
+0 $MIG1$
+$MIG1$ 0
+//Migration matrix 2
+0 0
+0 0
+//historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
+3 historical event
+$TMIG$ 0 0 1 $RESIZE1$ 0 1
+$TMIG$ 1 1 1 $RESIZE2$ 0 1
+$TDIV1$ 0 1 1 $RESIZE3$ 0 2
+//Number of independent loci [chromosome]
+16376
+//Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
+1
+//per Block:data type, number of loci, per gen recomb and mut rates
+DNA 89 0 1.18E-08
+```
+
