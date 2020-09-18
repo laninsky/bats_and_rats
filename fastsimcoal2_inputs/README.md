@@ -107,4 +107,107 @@ $TDIV1$ 0 1 1 $RESIZE3$ 0 2
 //per Block:data type, number of loci, per gen recomb and mut rates
 DNA 89 0 1.18E-08
 ```
+Ongoing migration initial est file:
+```
+// Priors and rules file
+// *********************
 
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 $NPOP1$ unif 0 1E9 output
+1 $NPOP2$ unif 0 1E9 output
+1 $ANCNPOP1$ unif 0 1E9 output
+1 $ANCNPOP2$ unif 0 1E9 output
+1 $ANCNPOPTOT$ unif 0 1E9 output
+1 $TDIV1$ unif 100 1E7 output
+1 $TMIG$ unif 100 1E7 output
+0 $MIG$ logunif 1E-100 1E-01 output
+0 $MIG1$ logunif 1E-100 1E-01 output
+
+[RULES]
+$TMIG$ <= $TDIV1$
+
+[COMPLEX PARAMETERS]
+0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
+0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
+0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
+```
+Secondary contact initial est file:
+```
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 $NPOP1$ unif 0 1E9 output
+1 $NPOP2$ unif 0 1E9 output
+1 $ANCNPOP1$ unif 0 1E9 output
+1 $ANCNPOP2$ unif 0 1E9 output
+1 $ANCNPOPTOT$ unif 0 1E9 output
+1 $TDIV1$ unif 100 1E7 output
+1 $TMIG$ unif 100 1E7 output
+0 $MIG$ logunif 1E-100 1E-01 output
+0 $MIG1$ logunif 0 0 output
+
+[RULES]
+$TMIG$ <= $TDIV1$
+
+[COMPLEX PARAMETERS]
+0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
+0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
+0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
+```
+Ancestral initial est file:
+```
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 $NPOP1$ unif 0 1E9 output
+1 $NPOP2$ unif 0 1E9 output
+1 $ANCNPOP1$ unif 0 1E9 output
+1 $ANCNPOP2$ unif 0 1E9 output
+1 $ANCNPOPTOT$ unif 0 1E9 output
+1 $TDIV1$ unif 100 1E7 output
+1 $TMIG$ unif 100 1E7 output
+0 $MIG$ logunif 0 0 output
+0 $MIG1$ logunif 1E-100 1E-01 output
+
+[RULES]
+$TMIG$ <= $TDIV1$
+
+[COMPLEX PARAMETERS]
+0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
+0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
+0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
+```
+Strict isolation est file:
+```
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 $NPOP1$ unif 0 1E9 output
+1 $NPOP2$ unif 0 1E9 output
+1 $ANCNPOP1$ unif 0 1E9 output
+1 $ANCNPOP2$ unif 0 1E9 output
+1 $ANCNPOPTOT$ unif 0 1E9 output
+1 $TDIV1$ unif 100 1E7 output
+1 $TMIG$ unif 100 1E7 output
+0 $MIG$ logunif 0 0 output
+0 $MIG1$ logunif 0 0 output
+
+[RULES]
+$TMIG$ <= $TDIV1$
+
+[COMPLEX PARAMETERS]
+0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
+0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
+0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
+```
