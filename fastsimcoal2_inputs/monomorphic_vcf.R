@@ -18,7 +18,7 @@ entry_to_duplicate <- as.character(invariant_row[grep("0/0",as.character(invaria
 invariant_row[10:length(invariant_row)] <- entry_to_duplicate
 
 # Creating an output matrix with the invariant row duplicated for the total number of invariant sites
-output <- matrix(invariant_row,nrow=as.numeric(fastsimcoal_inputs[3,1]),ncol=length(invariant_row),byrow=TRUE)
+output <- matrix(invariant_row,nrow=as.numeric(fastsimcoal_inputs[2,1]),ncol=length(invariant_row),byrow=TRUE)
 
 # Modifying some of the columns to give unique IDs, and to note the loci are monomorphic
 output[,2] <- c(1:dim(output)[1])
