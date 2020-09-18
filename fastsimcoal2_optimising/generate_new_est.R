@@ -65,3 +65,5 @@ if (!(temp[4]==0 & temp[5]==0)) {
   temp[5] <- max(likelihoods[,10])
   temp_est[15] <- paste(temp,collapse=" ")
 }
+
+writeLines(temp_est,paste(est_file_name,".new",sep=""))
