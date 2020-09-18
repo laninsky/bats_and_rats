@@ -101,11 +101,11 @@ $TMIG$ 0 0 1 $RESIZE1$ 0 1
 $TMIG$ 1 1 1 $RESIZE2$ 0 1
 $TDIV1$ 0 1 1 $RESIZE3$ 0 2
 //Number of independent loci [chromosome]
-16376
+1
 //Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
 1
 //per Block:data type, number of loci, per gen recomb and mut rates
-DNA 89 0 1.18E-08
+FREQ 1 0 1.18E-08
 ```
 Ongoing migration initial est file:
 ```
