@@ -159,7 +159,7 @@ $TMIG$ <= $TDIV1$
 0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
 0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
 ```
-Ancestral initial est file:
+Ancestral migration initial est file:
 ```
 // Priors and rules file
 // *********************
