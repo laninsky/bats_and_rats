@@ -66,4 +66,4 @@ if (!(temp[4]==0 & temp[5]==0)) {
   temp_est[15] <- paste(temp,collapse=" ")
 }
 
-writeLines(temp_est,paste(getwd(),"/",est_file_name,".new",sep=""))
+write_lines(temp_est,paste(est_file_name,".new",sep=""))
