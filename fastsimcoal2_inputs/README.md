@@ -67,6 +67,6 @@ JAE1782 N
 ```
 Downprojection reduces the total number of sites in the output SFS, so to work out the average length of loci remaining (for modeling with fastsimcoal as data type "DNA"), we count the total length of the MSFS.obs downprojected SFS (the total number of sites in the SFS), and divide by the number of loci (top line of fastsimcoal_inputs). In this example, the SFS is called vcf_w_monomorphic_MSFS.obs:
 ```
-head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | bc
+head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | awk '{n += $1}; END{print n}'
 ```
-
+The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to 89).
