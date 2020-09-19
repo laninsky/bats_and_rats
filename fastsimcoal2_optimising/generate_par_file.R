@@ -50,3 +50,5 @@ temp[1] <- as.numeric(likelihoods[1,7])
 temp[5] <- as.numeric(likelihoods[1,13])
 temp_par[27] <- paste(temp,collapse=" ")
 
+# Writing out the temp_par file
+write_lines(temp_par,gsub(".tpl",".par",tpl_file_name))
