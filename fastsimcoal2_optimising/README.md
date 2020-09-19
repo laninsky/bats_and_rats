@@ -36,7 +36,7 @@ cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
 ```
 After the 50 replicates are done, the following code can be used to summarise the highest likelihood runs from within each replicate:
 ```
-for i in fastsimcoal_*; do lineno=`wc -l $i/*/*.brent_lhoods | awk '{print $1}'`; lineno=$(( lineno - 1 )); tail -n $lineno $i/*/*.brent_lhoods | sed '/^$/d' | sort -nk 13 | tail -n 1 >> temp; done
+for i in fastsimcoal_*; do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | sort -nk 14 | tail -n 2 | head -n 1 >> temp; done
 sort -rnk 14 temp > likelihoods.txt
 rm temp
 ```
