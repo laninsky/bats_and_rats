@@ -65,8 +65,14 @@ If "No further increase in likelihood detected. Safe to stop" is the case, we ne
 # Modify the paths to the folders of interest at the beginning of initial_search_range.R
 Rscript initial_search_range.R
 ```
-If "No parameter estimate is greater than the upper bound of the initial search range nor within two orders of magnitude of the lower bound of the initial search range. Good to go!", then the following code can be used to summarise the bestlhoods.txt of the replicates within the folder and find the replicate that has the parameters that led to the highest likelihood.
+If "No parameter estimate is greater than the upper bound of the initial search range nor within two orders of magnitude of the lower bound of the initial search range. Good to go!", then the following code can be used to generate a \*.par file with the parameters that led to the highest likelihood.
 ```
-for i in fastsimcoal_*; do echo $i >> likelihood_with_replicates.txt; grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | sort -nk 14 | tail -n 2 | head -n 1 >> likelihood_with_replicates.txt; done
-grep -B1 `head -n 1 likelihoods.txt | awk '{print $14}' | sed 's/\..*//g' | sed 's/-//g'` likelihood_with_replicates.txt
+
+```
+The par file that lead to the highest likelihood run can then be copied out to re-run for 50 additional runs with -n = 1,000,000 to estimate the likelihood more accurately for selecting the best fitting scenario with AIC.
+```
+mkdir likelihood_run
+cp 1/fastsimcoal_49/haplo_ongoing_migration_MSFS.obs likelihood_run/
+
+
 ```
