@@ -40,8 +40,18 @@ for i in fastsimcoal_*; do lineno=`wc -l $i/*/*.brent_lhoods | awk '{print $1}'`
 sort -rnk 14 temp > likelihoods.txt
 rm temp
 ```
-We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on:
+We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on). This example is to compare folder `1` and `2` from the parent folder:
 ```
+previous=1
+current=2
+previous_best=`head -n 1 $previous/likelihoods.txt | awk '{print $14}'`
+current_best=`head -n 1 $current/likelihoods.txt | awk '{print $14}'`
+if [ $previous_best > $current_best ]
+  then
+    echo "No further increase in likelihood detected. Safe to stop"
+  else   
+    echo "Likelihood still increasing, keep going."
+fi
 ```
 If this is the case, we will also generate a new est file based on the parameter estimates across the previous 50 runs:
 ```
