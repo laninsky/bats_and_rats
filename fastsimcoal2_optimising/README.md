@@ -74,7 +74,7 @@ Rscript generate_par_file.R
 The par file that lead to the highest likelihood run can then be copied out to re-run for 50 additional runs with -n = 1,000,000 to estimate the likelihood more accurately for selecting the best fitting scenario with AIC.
 ```
 mkdir likelihood_run
-cp 1/fastsimcoal_49/haplo_ongoing_migration_MSFS.obs likelihood_run/
+cp 1/haplo_ongoing_migration_MSFS.obs likelihood_run/
 cp 1/haplo_ongoing_migration.par likelihood_run/
 
 #!/bin/bash -e
@@ -92,5 +92,5 @@ mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
 cp haplo_ongoing_migration.par fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
-/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 1000000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 1000000 -m --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
 ```
