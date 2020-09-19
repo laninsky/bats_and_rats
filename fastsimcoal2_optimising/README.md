@@ -67,7 +67,9 @@ Rscript initial_search_range.R
 ```
 If "No parameter estimate is greater than the upper bound of the initial search range nor within two orders of magnitude of the lower bound of the initial search range. Good to go!", then the following code can be used to generate a \*.par file with the parameters that led to the highest likelihood.
 ```
-
+# cd into the folder with the highest likelihood run
+cd 1
+Rscript generate_par_file.R
 ```
 The par file that lead to the highest likelihood run can then be copied out to re-run for 50 additional runs with -n = 1,000,000 to estimate the likelihood more accurately for selecting the best fitting scenario with AIC.
 ```
