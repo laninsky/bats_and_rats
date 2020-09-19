@@ -67,6 +67,6 @@ Rscript initial_search_range.R
 ```
 If "No parameter estimate is greater than the upper bound of the initial search range nor within two orders of magnitude of the lower bound of the initial search range. Good to go!", then the following code can be used to summarise the bestlhoods.txt of the replicates within the folder and find the replicate that has the parameters that led to the highest likelihood.
 ```
-for i in fastsimcoal_*; do echo $i >> likelihood_with_replicates.txt; lineno=`wc -l $i/*/*.brent_lhoods | awk '{print $1}'`; lineno=$(( lineno - 1 )); tail -n $lineno $i/*/*.brent_lhoods | sed '/^$/d' | sort -nk 13 | tail -n 1 >> likelihood_with_replicates.txt; done
+for i in fastsimcoal_*; do echo $i >> likelihood_with_replicates.txt; grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | sort -nk 14 | tail -n 2 | head -n 1 >> likelihood_with_replicates.txt; done
 grep -B1 `head -n 1 likelihoods.txt | awk '{print $14}' | sed 's/\..*//g' | sed 's/-//g'` likelihood_with_replicates.txt
 ```
