@@ -53,7 +53,9 @@ if [ $previous_best > $current_best ]
     echo "Likelihood still increasing, keep going."
 fi
 ```
-If this is the case, we will also generate a new est file based on the parameter estimates across the previous 50 runs:
+If "Likelihood still increasing, keep going" is the case, we will also generate a new est file based on the parameter estimates across the previous 50 runs:
 ```
 Rscript generate_new_est.R
 ```
+If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the .est folder of the initial run (e.g. folder `1`), to make sure that the 
+
