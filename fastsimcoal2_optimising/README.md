@@ -49,7 +49,7 @@ current_best=`head -n 1 $current/likelihoods.txt | awk '{print $14}'`
 echo "Previous best is" $previous_best
 echo "Current best is" $current_best
 
-if [ $previous_best > $current_best ]
+if (( $(echo "$previous_best > $current_best" |bc -l) ))
   then
     echo "No further increase in likelihood detected. Safe to stop"
   else   
