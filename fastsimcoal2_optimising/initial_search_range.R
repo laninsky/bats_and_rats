@@ -12,11 +12,14 @@ likelihoods <- read_tsv(paste(original_search_range_folder,"/likelihoods.txt",se
 est_file_name <- list.files(path=folder_with_most_likely_replicate,pattern=".est$")
 temp_est <- readLines(paste(folder_with_most_likely_replicate,"/",est_file_name,sep=""))
 
+# Creating an object to record whether we need to recreate an est file or not
+create_new_est_file <- FALSE
+
 # Seeing whether $NPOP1$ is greater than the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[7]," "))
-temp[4] <- min(likelihoods[,2])
-temp[5] <- max(likelihoods[,2])
+temp[4] 
+temp[5] 
 temp_est[7] <- paste(temp,collapse=" ")
 
 # Updating $NPOP2$
