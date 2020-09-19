@@ -57,5 +57,10 @@ If "Likelihood still increasing, keep going" is the case, we will also generate 
 ```
 Rscript generate_new_est.R
 ```
-If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the .est folder of the initial run (e.g. folder `1`), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range. If so, a new set of replicates will need to be initiated where the search range for each parameter ranged from two orders of magnitude smaller than the minimum estimate across the 50 replicates that included the replicate with the highest likelihood, to the maximum across those  replicates.
+If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the `.est` folder of the initial run (e.g. folder `1`), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range. If so, a new set of replicates will need to be initiated where the search range for each parameter ranges from two orders of magnitude smaller than the minimum estimate across the 50 replicates that included the replicate with the highest likelihood, to the maximum across those  replicates.
+```
+# Modify the paths to the folders of interest at the beginning of initial_search_range.R
+Rscript initial_search_range.R
+```
+
 
