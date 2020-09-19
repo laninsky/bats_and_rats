@@ -32,15 +32,21 @@ temp <- unlist(strsplit(temp_par[19]," "))
 temp[1] <- as.numeric(likelihoods[1,10])
 temp_par[19] <- paste(temp,collapse=" ")
 
-# Updating $TDIV1$
-temp <- unlist(strsplit(temp_est[12]," "))
-temp[4] <- min(likelihoods[,7])
-temp[5] <- max(likelihoods[,7])
-temp_est[12] <- paste(temp,collapse=" ")
+# Updating $TMIG$ and $RESIZE1$
+temp <- unlist(strsplit(temp_par[25]," "))
+temp[1] <- as.numeric(likelihoods[1,8])
+temp[5] <- as.numeric(likelihoods[1,11])
+temp_par[25] <- paste(temp,collapse=" ")
 
-# Updating $TMIG$
-temp <- unlist(strsplit(temp_est[13]," "))
-temp[4] <- min(likelihoods[,8])
-temp[5] <- max(likelihoods[,8])
-temp_est[13] <- paste(temp,collapse=" ")
+# Updating $TMIG$ and $RESIZE2$
+temp <- unlist(strsplit(temp_par[26]," "))
+temp[1] <- as.numeric(likelihoods[1,8])
+temp[5] <- as.numeric(likelihoods[1,12])
+temp_par[26] <- paste(temp,collapse=" ")
+
+# Updating $TDIV$ and $RESIZE3$
+temp <- unlist(strsplit(temp_par[27]," "))
+temp[1] <- as.numeric(likelihoods[1,7])
+temp[5] <- as.numeric(likelihoods[1,13])
+temp_par[27] <- paste(temp,collapse=" ")
 
