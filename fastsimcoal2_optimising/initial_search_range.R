@@ -83,6 +83,7 @@ if (!(temp[4]==0 & temp[5]==0)) {
 }
 
 if (create_new_est_file) {
+  cat("Some parameter estimates are greater than the upper bound of the initial search range\nor within two orders of magnitude of the lower bound of the initial search range.\n A new est file has beeen run out to \n")
   
 } else {
   cat("No parameter estimate is greater than the upper bound of the initial search range\nor within two orders of magnitude of the lower bound of the initial search range. Good to go!\n")
