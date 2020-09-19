@@ -50,12 +50,12 @@ if [ $previous_best > $current_best ]
   then
     echo "No further increase in likelihood detected. Safe to stop"
   else   
-    echo "Likelihood still increasing, keep going."
+    echo "Likelihood still increasing, keep going"
 fi
 ```
 If "Likelihood still increasing, keep going" is the case, we will also generate a new est file based on the parameter estimates across the previous 50 runs:
 ```
 Rscript generate_new_est.R
 ```
-If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the .est folder of the initial run (e.g. folder `1`), to make sure that the 
+If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the .est folder of the initial run (e.g. folder `1`), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range. If so, a new set of replicates will need to be initiated where the search range for each parameter ranged from two orders of magnitude smaller than the minimum estimate across the 50 replicates that included the replicate with the highest likelihood, to the maximum across those  replicates.
 
