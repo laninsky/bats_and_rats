@@ -82,4 +82,10 @@ if (!(temp[4]==0 & temp[5]==0)) {
   }
 }
 
+if (create_new_est_file) {
+  
+} else {
+  cat("No parameter estimate is greater than the upper bound of the initial search range\nor within two orders of magnitude of the lower bound of the initial search range. Good to go!\n")
+}
+
 write_lines(temp_est,paste(est_file_name,".new",sep=""))
