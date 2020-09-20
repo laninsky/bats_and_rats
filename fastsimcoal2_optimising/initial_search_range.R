@@ -129,7 +129,7 @@ if (create_new_est_file) {
   # Updating $MIG$
   temp <- unlist(strsplit(temp_est[14]," "))
   if (!(temp[4]==0 & temp[5]==0)) {
-    temp[4] <- round(min(likelihoods[,9])/100)
+    temp[4] <- min(likelihoods[,9])/100
     temp[5] <- max(likelihoods[,9])
     temp_est[14] <- paste(temp,collapse=" ")
   }
@@ -137,7 +137,7 @@ if (create_new_est_file) {
   # Updating $MIG1$
   temp <- unlist(strsplit(temp_est[15]," "))
   if (!(temp[4]==0 & temp[5]==0)) {
-    temp[4] <- round(min(likelihoods[,10])/100)
+    temp[4] <- min(likelihoods[,10])/100
     temp[5] <- max(likelihoods[,10])
     temp_est[15] <- paste(temp,collapse=" ")
   }
