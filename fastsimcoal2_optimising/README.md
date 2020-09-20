@@ -100,3 +100,4 @@ for i in fastsimcoal_*; do grep -v "^$" $i/*/*.lhoods | tail -n 1 >> temp; done
 sort -rnk 1 temp > likelihoods.txt
 rm temp
 ```
+When summarizing the final outputes, note that NPOP1 refers to S in Haplo, and N in Bullimus due to how easySFS sets up SFS files based on sample order in the population file
