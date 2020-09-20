@@ -96,7 +96,7 @@ cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
 ```
 After the final likelihood run is completed, the "best" likelihood for the run can be summarized by:
 ```
-for i in fastsimcoal_*; do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | sort -nk 14 | tail -n 2 | head -n 1 >> temp; done
-sort -rnk 14 temp > likelihoods.txt
+for i in fastsimcoal_*; do grep -v "^$" $i/*/*.lhoods | tail -n 1 >> temp; done
+sort -rnk 1 temp > likelihoods.txt
 rm temp
 ```
