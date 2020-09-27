@@ -69,7 +69,7 @@ Downprojection reduces the total number of sites in the output SFS, so to work o
 ```
 head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | awk '{n += $1}; END{print n}'
 ```
-The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to `89`).
+The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to `89`). We'll need this number when we eventually get to bootstrapping our most likely demographic scenario (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
 
 Based on these values, this is the tpl file generated:
 ```
@@ -211,3 +211,4 @@ $TMIG$ <= $TDIV1$
 0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
 0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
 ```
+These files then will next be used to figure out the best likelihoods of our various scenarios (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_optimising).
