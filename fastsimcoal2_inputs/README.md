@@ -225,7 +225,7 @@ $NPOP$
 //Number of migration matrices : 0 implies no migration between demes
 0
 //historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
-3 historical event
+2 historical event
 $TMIG$ 0 0 1 $RESIZE1$ 0 0
 $TDIV1$ 0 0 1 $RESIZE2$ 0 0
 //Number of independent loci [chromosome]
