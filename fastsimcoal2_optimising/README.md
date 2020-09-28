@@ -49,7 +49,11 @@ rm temp
 ```
 Within folder `1`, we generate a new est file based on the parameter estimates found across the 50 replicates, and copy that over to folder `2` to run another 50 replicates (our aim is to see whether narrowing our search range allows us to find a more likely set of parameter values), along with the other necessary files (the SFS, the tpl file, the batch script)
 ```
+# For two population scenarios
 Rscript generate_new_est.R
+
+# For the single population scenario
+Rscript generate_new_est_singleton.R
 ```
 We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on). This example is to compare folder `1` and `2` from the parent folder:
 ```
