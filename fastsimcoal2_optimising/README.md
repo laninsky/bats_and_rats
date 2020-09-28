@@ -34,7 +34,7 @@ cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
 /nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t haplo_ongoing_migration.tpl -e haplo_ongoing_migration.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
 ```
-This one was usedto generate the initial 50 simulations for the single population scenarios:
+This one was used to generate the initial 50 simulations for the single population scenarios:
 ```
 #!/bin/bash -e
 #SBATCH -A uoo03004
