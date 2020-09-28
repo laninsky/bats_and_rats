@@ -35,5 +35,5 @@ output[1,1] <- "1 observation"
 output[2,1] <- paste(paste("d0_",c(0:(SFS_size-1)),sep=""),collapse="\t")
 output[3,1] <- paste(SFS_output,collapse=" ")
 
-write.table(output,"singlepop0.obs",row.names=FALSE,col.names=FALSE,quote=FALSE)
+write.table(output,"single_DAFpop0.obs",row.names=FALSE,col.names=FALSE,quote=FALSE)
 
