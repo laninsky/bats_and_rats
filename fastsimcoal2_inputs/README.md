@@ -211,4 +211,54 @@ $TMIG$ <= $TDIV1$
 0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
 0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
 ```
+The final scenario we want to model needs a different tpl and est file (and for us to tweak the SFS). This scenario is "single population" i.e. we are only modeling population size changes and considering N and S as panmictic.  
+single population tpl file:  
+```
+//Parameters for the coalescence simulation program : fastsimcoal.exe
+1 samples to simulate :
+//Population effective sizes (number of genes)
+$NPOP$
+//Samples sizes and samples age
+54
+//Growth rates : negative growth implies population expansion
+0
+//Number of migration matrices : 0 implies no migration between demes
+0
+//historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
+3 historical event
+$TMIG$ 0 0 1 $RESIZE1$ 0 0
+$TDIV1$ 0 0 1 $RESIZE2$ 0 0
+//Number of independent loci [chromosome]
+1
+//Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
+1
+//per Block:data type, number of loci, per gen recomb and mut rates
+FREQ 1 0 1.18E-08
+```
+single population est file:  
+```
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 $NPOP$ unif 0 1E9 output
+1 $ANCNPOP$ unif 0 1E9 output
+1 $ANCNPOPTOT$ unif 0 1E9 output
+1 $TDIV1$ unif 100 1E7 output
+1 $TMIG$ unif 100 1E7 output
+
+[RULES]
+$TMIG$ <= $TDIV1$
+
+[COMPLEX PARAMETERS]
+0 $RESIZE1$ = $ANCNPOP$/$NPOP$ output
+0 $RESIZE2$ = $ANCNPOPTOT$/$NPOP$ output
+```
+Using the \*.jointMAFpop1_0.obs file written out by easySFS, we are going to create a new SFS assuming all individuals are from the same population using the following code (assumes it is being run in the same folder as an SFS with the jointMAFpop1_0.obs suffix):  
+```
+single_population_SFS.R
+```
+
 These files then will next be used to figure out the best likelihoods of our various scenarios (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_optimising).
