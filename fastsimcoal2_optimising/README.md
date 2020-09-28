@@ -41,6 +41,11 @@ After the 50 replicates are done, the following code can be used to summarise th
 for i in fastsimcoal_*; do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 14 | tail -n 2 | head -n 1 >> temp; done
 sort -rnk 14 temp > likelihoods.txt
 rm temp
+
+# For the single population scenario
+for i in fastsimcoal_*; do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 13 | tail -n 2 | head -n 1 >> temp; done
+sort -rnk 13 temp > likelihoods.txt
+rm temp
 ```
 Within folder `1`, we generate a new est file based on the parameter estimates found across the 50 replicates, and copy that over to folder `2` to run another 50 replicates (our aim is to see whether narrowing our search range allows us to find a more likely set of parameter values), along with the other necessary files (the SFS, the tpl file, the batch script)
 ```
