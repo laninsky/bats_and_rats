@@ -57,10 +57,26 @@ Rscript generate_new_est_singleton.R
 ```
 We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on). This example is to compare folder `1` and `2` from the parent folder:
 ```
+# For two population scenarios
 previous=1
 current=2
 previous_best=`head -n 1 $previous/likelihoods.txt | awk '{print $14}'`
 current_best=`head -n 1 $current/likelihoods.txt | awk '{print $14}'`
+echo "Previous best is" $previous_best
+echo "Current best is" $current_best
+
+if (( $(echo "$previous_best > $current_best" |bc -l) ))
+  then
+    echo "No further increase in likelihood detected. Safe to stop"
+  else   
+    echo "Likelihood still increasing, keep going"
+fi
+
+# For the single population scenario
+previous=1
+current=2
+previous_best=`head -n 1 $previous/likelihoods.txt | awk '{print $13}'`
+current_best=`head -n 1 $current/likelihoods.txt | awk '{print $13}'`
 echo "Previous best is" $previous_best
 echo "Current best is" $current_best
 
