@@ -14,7 +14,7 @@ cp ../../output/fastsimcoal2/vcf_w_monomorphic_MSFS.obs haplo_ongoing_migration_
 cp ../../fastsimcoal.tpl haplo_ongoing_migration.tpl
 cp ../../ongoing_migration.est haplo_ongoing_migration.est
 ```
-This bash script was used to generate the initial 50 simulations for the two population scenarios:
+This bash script was used to generate the initial 50 simulations for the scenarios:
 ```
 #!/bin/bash -e
 #SBATCH -A uoo03004
@@ -34,26 +34,6 @@ cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
 /nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t haplo_ongoing_migration.tpl -e haplo_ongoing_migration.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
 ```
-This one was used to generate the initial 50 simulations for the single population scenarios:
-```
-#!/bin/bash -e
-#SBATCH -A uoo03004
-#SBATCH -J haplo_single_population
-#SBATCH -t 6:00:00
-#SBATCH --mem=5GB
-#SBATCH -c 12
-#SBATCH -n 1
-#SBATCH -N 1
-#SBATCH -D /nesi/nobackup/uoo03004/bats_rats/haplo_single_population/1
-#SBATCH --array=1-50
-
-mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
-cp single.est fastsimcoal_${SLURM_ARRAY_TASK_ID}/
-cp single.tpl fastsimcoal_${SLURM_ARRAY_TASK_ID}/
-cp single_DAFpop0.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
-cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
-/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t single.tpl -e single.est -n 100000 -m -M -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
-```
 
 After the 50 replicates are done, the following code can be used to summarise the highest likelihood runs from within each replicate:
 ```
@@ -61,8 +41,6 @@ After the 50 replicates are done, the following code can be used to summarise th
 for i in fastsimcoal_*; do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 14 | tail -n 2 | head -n 1 >> temp; done
 sort -rnk 14 temp > likelihoods.txt
 rm temp
-
-# For single population scenario
 ```
 Within folder `1`, we generate a new est file based on the parameter estimates found across the 50 replicates, and copy that over to folder `2` to run another 50 replicates (our aim is to see whether narrowing our search range allows us to find a more likely set of parameter values), along with the other necessary files (the SFS, the tpl file, the batch script)
 ```
