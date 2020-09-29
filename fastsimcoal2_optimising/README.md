@@ -95,7 +95,7 @@ Rscript generate_new_est.R
 # For the single population scenario
 Rscript generate_new_est_single.R
 ```
-If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the `.est` folder of the initial run (e.g. folder `1`), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range (to make sure our search range isn't potentially constraining our results). Tweak the paths to the relevant folder and run in the parent folder:  
+If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the `.est` folder of the initial run (e.g. folder `1`, or the folder you put the est file into after running `initial_search_range.R` last time around), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range (to make sure our search range isn't potentially constraining our results). Tweak the paths to the relevant folder and run in the parent folder:  
 ```
 # Modify the paths to the folders of interest at the beginning of initial_search_range.R
 # For two population scenarios
