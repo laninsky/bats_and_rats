@@ -53,7 +53,7 @@ Within folder `1`, we generate a new est file based on the parameter estimates f
 Rscript generate_new_est.R
 
 # For the single population scenario
-Rscript generate_new_est_singleton.R
+Rscript generate_new_est_single.R
 ```
 We then see whether the best likelihood replicate in the current set of 50 has a higher likelihood than the previous set of 50 replicates (if so, we are still trending towards finding more likely solutions and will continue on). This example is to compare folder `1` and `2` from the parent folder:
 ```
@@ -93,12 +93,16 @@ If "Likelihood still increasing, keep going" is the case, we will also generate 
 Rscript generate_new_est.R
 
 # For the single population scenario
-Rscript generate_new_est_singleton.R
+Rscript generate_new_est_single.R
 ```
 If "No further increase in likelihood detected. Safe to stop" is the case, we need to compare to the `.est` folder of the initial run (e.g. folder `1`), to make sure that the parameter estimates for the replicate with the highest likelihood were not within two orders of magnitude of the low end of the initial search range distribution, or exceeded the upper end of the initial search range (to make sure our search range isn't potentially constraining our results). Tweak the paths to the relevant folder and run in the parent folder:  
 ```
 # Modify the paths to the folders of interest at the beginning of initial_search_range.R
+# For two population scenarios
 Rscript initial_search_range.R
+
+# For the single population scenario
+Rscript initial_search_range_single.R
 ```
 If you get the following message, "Some parameter estimates are greater than the upper bound of the initial search range or within two orders of magnitude of the lower bound of the initial search range. A new est file has been written out to start again", first double check that this message is not due to the lower search bound being 0! (because no matter how many times you go through this process, if the parameter estimates that lead to the best likelihood are below 100, you'll never get more than two orders of magnitude above the lower bound). If this is the case, skip down to the instructions for what to do if "No parameter estimate is greater than the upper bound of the initial search range nor within two orders of magnitude of the lower bound of the initial search range".
  
