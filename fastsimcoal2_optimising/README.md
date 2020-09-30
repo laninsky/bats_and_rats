@@ -112,7 +112,12 @@ Onc you get to "No parameter estimate is greater than the upper bound of the ini
 ```
 # cd into the folder with the highest likelihood run
 cd 1
+
+# For two population scenarios
 Rscript generate_par_file.R
+
+# For the single population scenario
+Rscript generate_par_file_single.R
 ```
 The par file that lead to the highest likelihood run can then be copied out to re-run for 50 additional runs with -n = 1,000,000 to estimate the likelihood more accurately for selecting the best fitting scenario with AIC.
 ```
