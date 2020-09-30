@@ -9,45 +9,39 @@ tpl_file_name <- list.files(pattern=".tpl$")
 temp_par <- readLines(tpl_file_name)
 
 # Updating $NPOP1$
-temp_par[4] <- as.numeric(likelihoods[1,2])
+temp_par[4] <- as.numeric(likelihoods[1,9])
 
 # Updating $NPOP2$
-temp_par[5] <- as.numeric(likelihoods[1,3])
+temp_par[5] <- as.numeric(likelihoods[1,10])
 
 # Updating $MIG$
 temp <- unlist(strsplit(temp_par[15]," "))
-temp[2] <- as.numeric(likelihoods[1,9])
+temp[2] <- as.numeric(likelihoods[1,7])
 temp_par[15] <- paste(temp,collapse=" ")
 
 temp <- unlist(strsplit(temp_par[16]," "))
-temp[1] <- as.numeric(likelihoods[1,9])
+temp[1] <- as.numeric(likelihoods[1,7])
 temp_par[16] <- paste(temp,collapse=" ")
 
 # Updating $MIG1$
 temp <- unlist(strsplit(temp_par[18]," "))
-temp[2] <- as.numeric(likelihoods[1,10])
+temp[2] <- as.numeric(likelihoods[1,8])
 temp_par[18] <- paste(temp,collapse=" ")
 
 temp <- unlist(strsplit(temp_par[19]," "))
-temp[1] <- as.numeric(likelihoods[1,10])
-temp_par[19] <- paste(temp,collapse=" ")
-
-# Updating $TMIG$ and $RESIZE1$
-temp <- unlist(strsplit(temp_par[25]," "))
 temp[1] <- as.numeric(likelihoods[1,8])
-temp[5] <- as.numeric(likelihoods[1,11])
-temp_par[25] <- paste(temp,collapse=" ")
+temp_par[19] <- paste(temp,collapse=" ")
 
 # Updating $TMIG$ and $RESIZE2$
 temp <- unlist(strsplit(temp_par[26]," "))
-temp[1] <- as.numeric(likelihoods[1,8])
-temp[5] <- as.numeric(likelihoods[1,12])
+temp[1] <- as.numeric(likelihoods[1,6])
+temp[5] <- as.numeric(likelihoods[1,11])
 temp_par[26] <- paste(temp,collapse=" ")
 
 # Updating $TDIV$ and $RESIZE3$
 temp <- unlist(strsplit(temp_par[27]," "))
-temp[1] <- as.numeric(likelihoods[1,7])
-temp[5] <- as.numeric(likelihoods[1,13])
+temp[1] <- as.numeric(likelihoods[1,5])
+temp[5] <- as.numeric(likelihoods[1,12])
 temp_par[27] <- paste(temp,collapse=" ")
 
 # Writing out the temp_par file
