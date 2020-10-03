@@ -61,3 +61,10 @@ The replicate SFS files will then be generated using the following code
 
 /nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 100 -m --multiSFS -q -c 24 -B 24 -x -j -s0 > ${MOAB_JOBARRAYINDEX}.log
 ```
+We then need to copy the \*.est and \*.tpl files into each of the 100 folders:  
+```
+for i in `seq 1 100`;
+  do cp haplo_ongoing_migration.est haplo_ongoing_migration/haplo_ongoing_migration_${i}/;
+  cp haplo_ongoing_migration.tpl haplo_ongoing_migration/haplo_ongoing_migration_${i}/;
+done
+```
