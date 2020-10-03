@@ -90,7 +90,7 @@ cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
 /nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t haplo_ongoing_migration.tpl -e haplo_ongoing_migration.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
 ```
-Loop to launch fastsimcoal2 jobs for each of the bootstrap replicates. Due to computational limits, had to increment the number of replicates in lots of 20 (replacing the ```for i in `seq 1 20` line```): 
+Loop to launch fastsimcoal2 jobs for each of the bootstrap replicates. Due to computational limits, had to increment the number of replicates in lots of 20 (replacing the ```for i in `seq 1 20` ```line): 
 ```
 for i in `seq 1 20`;
   do head -n 8 fastsimcoal.sh > haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
