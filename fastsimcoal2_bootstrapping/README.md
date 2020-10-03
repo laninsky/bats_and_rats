@@ -68,3 +68,36 @@ for i in `seq 1 100`;
   cp haplo_ongoing_migration.tpl haplo_ongoing_migration/haplo_ongoing_migration_${i}/;
 done
 ```
+We then need to copy/modify the `fastsimcoal.sh` script we'll use for each of the bootstrap replicates to run the 50 replicates for estimating the parameters that result in the highest likelihood for each replicate (this means 500 jobs in total: 100 bootstraps * 50 fastsimcoal replicate runs), and launch it.  
+
+fastsimcoal.sh template:
+```
+#!/bin/bash -e
+#SBATCH -A uoo03004
+#SBATCH -J haplo_ongoing_migration
+#SBATCH -t 6:00:00
+#SBATCH --mem=5GB
+#SBATCH -c 12
+#SBATCH -n 1
+#SBATCH -N 1
+#SBATCH -D 
+#SBATCH --array=1-50
+
+mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
+cp haplo_ongoing_migration.est fastsimcoal_${SLURM_ARRAY_TASK_ID}/
+cp haplo_ongoing_migration.tpl fastsimcoal_${SLURM_ARRAY_TASK_ID}/
+cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
+cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t haplo_ongoing_migration.tpl -e haplo_ongoing_migration.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
+```
+Loop to launch fastsimcoal2 jobs for each of the bootstrap replicates. Due to computational limits, had to increment the number of replicates in lots of 20 (replacing the ```for i in `seq 1 20` line```): 
+```
+for i in `seq 1 20`;
+  do head -n 8 fastsimcoal.sh > haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
+  directory_start=`head -n 9 fastsimcoal.sh | tail -n 1`;
+  echo $directory_start "/nesi/nobackup/uoo03004/bats_rats/haplo_ongoing_migration/bootstrapping/haplo_ongoing_migration/haplo_ongoing_migration_${i}/" >> haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
+  tail -n 8 fastsimcoal.sh >> haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
+  sbatch haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
+done
+```
+
