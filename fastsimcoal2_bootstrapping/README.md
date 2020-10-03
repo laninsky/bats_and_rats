@@ -47,10 +47,17 @@ bootstrap par file:
 //per Block:data type, number of loci, per gen recomb and mut rates
 DNA 91 0 1.18E-08 OUTEXP
 ```
+The replicate SFS files will then be generated using the following code
+```
+#!/bin/bash -e
+#SBATCH -A uoo03004
+#SBATCH -J haplo_ongoing_migration
+#SBATCH -t 6:00:00
+#SBATCH --mem=5GB
+#SBATCH -c 12
+#SBATCH -n 1
+#SBATCH -N 1
+#SBATCH -D /nesi/nobackup/uoo03004/bats_rats/haplo_ongoing_migration/bootstrapping
 
--j option to output into separate folders
--s0 to output the data as DNA
-
-
-1488884 total sites
-91 bp in average
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 100 -m --multiSFS -q -c 24 -B 24 -x -j -s0 > ${MOAB_JOBARRAYINDEX}.log
+```
