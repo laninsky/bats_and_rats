@@ -104,7 +104,7 @@ Once all the bootstrap replicates are done, we need to summarize the likelihoods
 ```
 for j in `seq 1 100`;
   do for i in haplo_ongoing_migration/haplo_ongoing_migration_${j}/fastsimcoal_*; 
-    do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 14 | tail -n 2 | head -n 1 >> temp;
+    do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 14 | tail -n 2 | head -n 1 >> haplo_ongoing_migration/haplo_ongoing_migration_${j}/temp;
   done;
   sort -rnk 14 haplo_ongoing_migration/haplo_ongoing_migration_${j}/temp | head -n 1 >> likelihoods.txt;
 done
