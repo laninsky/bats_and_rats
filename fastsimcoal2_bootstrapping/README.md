@@ -61,14 +61,14 @@ The replicate SFS files will then be generated using the following code
 
 /nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 100 -m --multiSFS -q -c 24 -B 24 -x -j -s0 > ${MOAB_JOBARRAYINDEX}.log
 ```
-We then need to copy the \*.est and \*.tpl files into each of the 100 folders:  
+We then need to copy the \*.est and \*.tpl files into each of the 100 folders (which are located within a folder called `haplo_ongoing_migration`):  
 ```
 for i in `seq 1 100`;
   do cp haplo_ongoing_migration.est haplo_ongoing_migration/haplo_ongoing_migration_${i}/;
   cp haplo_ongoing_migration.tpl haplo_ongoing_migration/haplo_ongoing_migration_${i}/;
 done
 ```
-We then need to copy/modify the `fastsimcoal.sh` script we'll use for each of the bootstrap replicates to run the 50 replicates for estimating the parameters that result in the highest likelihood for each replicate (this means 500 jobs in total: 100 bootstraps * 50 fastsimcoal replicate runs), and launch it.  
+We then need to copy/modify the `fastsimcoal.sh` script we'll use for each of the bootstrap replicates to run the 50 replicates for estimating the parameters that result in the highest likelihood for each replicate (this means 500 jobs in total: 100 bootstraps * 50 fastsimcoal replicate runs), and launch it. The template script and the loop to launch all the jobs should be located in the `bootstrapping` parent folder. 
 
 fastsimcoal.sh template:
 ```
@@ -100,7 +100,16 @@ for i in `seq 1 20`;
   sbatch haplo_ongoing_migration/haplo_ongoing_migration_${i}/fastsimcoal.sh;
 done
 ```
-Once all the bootstrap replicates are done, we need to summarize the likelihoods from each of the replicates:
+Once all the bootstrap replicates are done, we need to summarize the likelihoods from each of the replicates. Our directory structure looks like this:
+```
+bootstrapping
+--> haplo_ongoing_migration
+----> haplo_ongoing_migration_1...100
+------> fastsimcoal_1...50
+--------> haplo_ongoing_migration
+---------->  haplo_ongoing_migration.brent_lhoods
+```
+From within the `bootstrapping` parent folder, we run:  
 ```
 for j in `seq 1 100`;
   do for i in haplo_ongoing_migration/haplo_ongoing_migration_${j}/fastsimcoal_*; 
