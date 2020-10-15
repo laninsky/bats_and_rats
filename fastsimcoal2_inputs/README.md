@@ -3,7 +3,7 @@ Because ipyrad only outputs variable sites into the vcf file, we will need to mo
 Number of loci are the number of `retained_loci` that are also `total_filtered_loci`:  
 `16,376`
 
-Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size`:  
+Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size` (if you are coming from a different pipeline: the total length of sequence - the number of SNPs across that sequence):  
 `1,493,950-33,969 = 1,459,981 bp`
 
 These numbers need to be placed in a file called fastsimcoal_inputs. First line is the number of loci, second line the number of monomorphic sites, and the final line, the name of the vcf file that will be added to e.g.
