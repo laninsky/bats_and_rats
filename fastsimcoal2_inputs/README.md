@@ -84,7 +84,7 @@ S
 # easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --proj=12,14
 ```
 
-Hap_Popfile.txt and [pop.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/pop.txt) (Bullimus).  
+[Hap_Popfile.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/Hap_Popfile.txt) and [pop.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/pop.txt) (Bullimus).  
 
 Downprojection reduces the total number of sites in the output SFS, so to work out the average length of loci remaining (for modeling with fastsimcoal as data type "DNA"), we count the total length of the MSFS.obs downprojected SFS (the total number of sites in the SFS), and divide by the number of loci (top line of fastsimcoal_inputs). In this example, the SFS is called vcf_w_monomorphic_MSFS.obs:
 ```
