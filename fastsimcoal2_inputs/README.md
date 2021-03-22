@@ -59,6 +59,10 @@ conda install -c bioconda dadi pandas
 # easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
 
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
+
+# For Bullimus
+# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
+
 ```
 Hap_Popfile.txt snippet:
 ```
