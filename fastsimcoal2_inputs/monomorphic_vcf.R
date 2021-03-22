@@ -22,8 +22,8 @@ temp_monomorphic <- temp_monomorphic %>% mutate_all(gsub_function_11)
 # Figuring out the number of times this temp_monomorphic dataframe
 # needs to be copied in order to have the number of required lines
 number_of_reps_needed <- as.numeric(fastsimcoal_inputs[2,1])/dim(temp)[1]
-full_reps <- round(number_of_reps_needed)
-rest_of_lines <- (number_of_reps_needed - round(number_of_reps_needed))*dim(temp)[1]
+full_reps <- floor(number_of_reps_needed)
+rest_of_lines <- (number_of_reps_needed - floor(number_of_reps_needed))*dim(temp)[1]
 
 output_full_reps <- temp_monomorphic[rep(1:dim(temp_monomorphic)[1],full_reps),]
 output_rest_of_lines <- temp_monomorphic[1:rest_of_lines,]
