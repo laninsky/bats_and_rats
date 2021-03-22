@@ -1,7 +1,7 @@
 Because ipyrad/stacks only output variable sites into the vcf file, we will need to modify the vcf to include monomorphic sites before generating the SFS, as these are important for timing of demographic events. In addition, we need the number of loci for the fastsimcoal2 analysis. Using the \*_stats.txt file from ipyrad (or the log files from stacks v2 if you are coming from there), we obtained the following numbers:  
 
 Number of loci are the number of `retained_loci` that are also `total_filtered_loci`:  
-`16,376 # ` 
+`16,376 # `  
 `13,533 # Bullimus`
 
 Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size` (if you are coming from a different pipeline: the total length of sequence minus the number of SNPs across that sequence):  
