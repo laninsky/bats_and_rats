@@ -102,184 +102,23 @@ Downprojection reduces the total number of sites in the output SFS, so to work o
 ```
 head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | sed 's/ /\+/g' | bc
 ```
-The output for this example was `1.46442e+06`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `89.4 bp` (we'll be rounding to `89`). We'll need this number when we eventually get to bootstrapping our most likely demographic scenario (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
+The output for Bullimus was `967993`. When divided by the total number of loci in our dataset, `13533` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `71.52 bp` (we'll be rounding to `72`). We'll need this number when we eventually get to bootstrapping our most likely demographic scenario (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
 
-Based on these values, this is the tpl file generated:
-```
-//Parameters for the coalescence simulation program : fastsimcoal.exe
-2 samples to simulate :
-//Population effective sizes (number of genes)
-$NPOP1$
-$NPOP2$
-//Samples sizes and samples age
-42
-12
-//Growth rates : negative growth implies population expansion
-0
-0
-//Number of migration matrices : 0 implies no migration between demes
-3
-//Migration matrix 0
-0 $MIG$
-$MIG$ 0
-//Migration matrix 1
-0 $MIG1$
-$MIG1$ 0
-//Migration matrix 2
-0 0
-0 0
-//historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
-3 historical event
-$TMIG$ 0 0 1 $RESIZE1$ 0 1
-$TMIG$ 1 1 1 $RESIZE2$ 0 1
-$TDIV1$ 0 1 1 $RESIZE3$ 0 2
-//Number of independent loci [chromosome]
-1
-//Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
-1
-//per Block:data type, number of loci, per gen recomb and mut rates
-FREQ 1 0 1.18E-08
-```
-Ongoing migration initial est file:
-```
-// Priors and rules file
-// *********************
+Based on these values, this is the tpl file generated for haplo:
 
-[PARAMETERS]
-//#isInt? #name #dist.#min #max
-//all Ns are in number of haploid individuals
-1 $NPOP1$ unif 0 1E9 output
-1 $NPOP2$ unif 0 1E9 output
-1 $ANCNPOP1$ unif 0 1E9 output
-1 $ANCNPOP2$ unif 0 1E9 output
-1 $ANCNPOPTOT$ unif 0 1E9 output
-1 $TDIV1$ unif 100 1E7 output
-1 $TMIG$ unif 100 1E7 output
-0 $MIG$ logunif 1E-100 1E-01 output
-0 $MIG1$ logunif 1E-100 1E-01 output
+Based on these values, this is the tpl file generated for bullimus:
+https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus.tpl
 
-[RULES]
-$TMIG$ <= $TDIV1$
+The initial est files were the same across both species.
+Ongoing migration est file: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/ongoing_migration.est  
+Secondary contact est file: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/secondary_contact.est
+Ancestral migration est file: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/ancestral_migration.est
+Strict isolation est file: https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_inputs
 
-[COMPLEX PARAMETERS]
-0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
-0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
-0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
-```
-Secondary contact initial est file:
-```
-// Priors and rules file
-// *********************
-
-[PARAMETERS]
-//#isInt? #name #dist.#min #max
-//all Ns are in number of haploid individuals
-1 $NPOP1$ unif 0 1E9 output
-1 $NPOP2$ unif 0 1E9 output
-1 $ANCNPOP1$ unif 0 1E9 output
-1 $ANCNPOP2$ unif 0 1E9 output
-1 $ANCNPOPTOT$ unif 0 1E9 output
-1 $TDIV1$ unif 100 1E7 output
-1 $TMIG$ unif 100 1E7 output
-0 $MIG$ logunif 1E-100 1E-01 output
-0 $MIG1$ logunif 0 0 output
-
-[RULES]
-$TMIG$ <= $TDIV1$
-
-[COMPLEX PARAMETERS]
-0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
-0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
-0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
-```
-Ancestral migration initial est file:
-```
-// Priors and rules file
-// *********************
-
-[PARAMETERS]
-//#isInt? #name #dist.#min #max
-//all Ns are in number of haploid individuals
-1 $NPOP1$ unif 0 1E9 output
-1 $NPOP2$ unif 0 1E9 output
-1 $ANCNPOP1$ unif 0 1E9 output
-1 $ANCNPOP2$ unif 0 1E9 output
-1 $ANCNPOPTOT$ unif 0 1E9 output
-1 $TDIV1$ unif 100 1E7 output
-1 $TMIG$ unif 100 1E7 output
-0 $MIG$ logunif 0 0 output
-0 $MIG1$ logunif 1E-100 1E-01 output
-
-[RULES]
-$TMIG$ <= $TDIV1$
-
-[COMPLEX PARAMETERS]
-0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
-0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
-0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
-```
-Strict isolation est file:
-```
-// Priors and rules file
-// *********************
-
-[PARAMETERS]
-//#isInt? #name #dist.#min #max
-//all Ns are in number of haploid individuals
-1 $NPOP1$ unif 0 1E9 output
-1 $NPOP2$ unif 0 1E9 output
-1 $ANCNPOP1$ unif 0 1E9 output
-1 $ANCNPOP2$ unif 0 1E9 output
-1 $ANCNPOPTOT$ unif 0 1E9 output
-1 $TDIV1$ unif 100 1E7 output
-1 $TMIG$ unif 100 1E7 output
-0 $MIG$ logunif 0 0 output
-0 $MIG1$ logunif 0 0 output
-
-[RULES]
-$TMIG$ <= $TDIV1$
-
-[COMPLEX PARAMETERS]
-0 $RESIZE1$ = $ANCNPOP1$/$NPOP1$ output
-0 $RESIZE2$ = $ANCNPOP2$/$NPOP2$ output
-0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
-```
 The final scenario we want to model needs a different tpl and est file. This scenario is "single population" i.e. we are only modeling population size changes and considering N and S as panmictic.  
 single population tpl file:  
 ```
-//Parameters for the coalescence simulation program : fastsimcoal.exe
-2 samples to simulate :
-//Population effective sizes (number of genes)
-$NPOP1$
-$NPOP2$
-//Samples sizes and samples age
-42
-12
-//Growth rates : negative growth implies population expansion
-0
-0
-//Number of migration matrices : 0 implies no migration between demes
-3
-//Migration matrix 0
-0 $MIG$
-$MIG$ 0
-//Migration matrix 1
-0 $MIG1$
-$MIG1$ 0
-//Migration matrix 2
-0 0
-0 0
-//historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
-3 historical event
-0 0 1 1 2 0 1
-$TMIG$ 0 0 1 $RESIZE2$ 0 1
-$TDIV1$ 0 0 1 $RESIZE3$ 0 2
-//Number of independent loci [chromosome]
-1
-//Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
-1
-//per Block:data type, number of loci, per gen recomb and mut rates
-FREQ 1 0 1.18E-08
+
 ```
 single population est file:  
 ```
