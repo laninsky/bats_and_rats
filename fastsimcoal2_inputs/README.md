@@ -1,11 +1,11 @@
 Because ipyrad/stacks only output variable sites into the vcf file, we will need to modify the vcf to include monomorphic sites before generating the SFS, as these are important for timing of demographic events. In addition, we need the number of loci for the fastsimcoal2 analysis. Using the \*_stats.txt file from ipyrad (or the log files from stacks v2 if you are coming from there), we obtained the following numbers:  
 
 Number of loci are the number of `retained_loci` that are also `total_filtered_loci`:  
-`16,376 # `  
+`16,376 # Haplo`  
 `13,533 # Bullimus`
 
 Total number of monomorphic entries to add to vcf file is total `sequence matrix size` minus `snps matrix size` (if you are coming from a different pipeline: the total length of sequence minus the number of SNPs across that sequence):  
-`1,493,950-33,969 = 1,459,981 bp`  
+`1,493,950-33,969 = 1,459,981 bp # Haplo`  
 `1,235,449-17,973 = 1,217,476 bp # Bullimus`
 
 These numbers need to be placed in a file called fastsimcoal_inputs. First line is the number of loci, second line the number of monomorphic sites, and the final line, the name of the vcf file that will be added to e.g.
@@ -47,21 +47,26 @@ Using this modified vcf file and the popfile (snippet below), we then use easySF
 module load Miniconda3/4.8.2
 
 #conda create -n easySFS
-source /nesi/nobackup/uoo00105/chickadees/bin/miniconda3/etc/profile.d/conda.sh 
 conda activate easySFS
-conda install -c bioconda dadi pandas
-#git clone https://github.com/isaacovercast/easySFS.git
-#cd easySFS
-#chmod 777 easySFS.py
+#conda install -c bioconda dadi pandas
+git clone https://github.com/isaacovercast/easySFS.git
+cd easySFS
+chmod 777 easySFS.py
+cd ..
 
-# This initial code suggested downprojecting to 42 for S, and 12 for N
-# would maximize the number of segregating sites
+# Note, the population order for easySFS is the order that populations are encountered
+# in the popmap file. Make sure this is consistent between species to avoid getting
+# things the wrong way around
+
+# For Haplo
 # easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
+
+# Selected values: N has the most segregating sites at 12, S has the most segregating sites at 42
 
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
 
 # For Bullimus
-# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
+easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
 # output
 #Processing 2 populations - odict_keys(['N', 'S'])
 #
@@ -81,7 +86,7 @@ S
 #(2, 1796)	(3, 2678)	(4, 3392)	(5, 4010)	(6, 4576)	(7, 5083)	(8, 5572)	(9, 5905)	(10, 6339)	(11, 6350)	(12, 6733)	(13, 6408)	(14, #6737)	(15, 6088)	(16, 6365)	(17, 5497)	(18, 5722)	(19, 4512)	(20, 4685)	(21, 3005)	(22, 3114)	
 # Selected values: N has the most segregating sites at 12, S has the most segregating sites at 14
 
-# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --proj=12,14
+easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --proj=12,14
 ```
 
 [Hap_Popfile.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/Hap_Popfile.txt) and [pop.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/pop.txt) (Bullimus).  
