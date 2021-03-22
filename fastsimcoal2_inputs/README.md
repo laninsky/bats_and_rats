@@ -23,6 +23,7 @@ tail -n +$headerlineno $filename > temp
 Rscript monomorphic_vcf.R
 cat header_row.txt temp >> vcf_w_monomorphic.vcf
 ```
+monomorphic_vcf.R duplicates the variable data in the vcf file up to the number of monomorphic sites needed to be added, and then changes the calls to invariant, in order to match the patterns of missingness found over the variable sites.  
 
 Using this modified vcf file and the popfile (snippet below), we then use easySFS to generate the SFS. We run it twice, once profiling the vcf in order to assess the appropriate downprojection, and then generating the outfiles using the appropriate downprojection that maximizes the number of segregating sites.
 ```
