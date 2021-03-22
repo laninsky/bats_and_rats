@@ -83,20 +83,8 @@ S
 
 # easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --proj=12,14
 ```
-Hap_Popfile.txt snippet:
-```
-JAE1726 S
-JAE1727 S
-JAE1728 S
-JAE1734 S
-JAE1752 S
-JAE1755 S
-JAE1758 S
-JAE1760 S
-JAE1780 N
-JAE1782 N
-```
-Full Hap_Popfile.txt and [pop.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/pop.txt) (Bullimus).  
+
+Hap_Popfile.txt and [pop.txt](https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/pop.txt) (Bullimus).  
 
 Downprojection reduces the total number of sites in the output SFS, so to work out the average length of loci remaining (for modeling with fastsimcoal as data type "DNA"), we count the total length of the MSFS.obs downprojected SFS (the total number of sites in the SFS), and divide by the number of loci (top line of fastsimcoal_inputs). In this example, the SFS is called vcf_w_monomorphic_MSFS.obs:
 ```
@@ -116,34 +104,8 @@ Ancestral migration est file: https://github.com/laninsky/bats_and_rats/blob/mas
 Strict isolation est file: https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_inputs
 
 The final scenario we want to model needs a different tpl and est file. This scenario is "single population" i.e. we are only modeling population size changes and considering N and S as panmictic.  
-single population tpl file:  
-```
+single population bullimus tpl file:  https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus_single.tpl
 
-```
-single population est file:  
-```
-// Priors and rules file
-// *********************
-
-[PARAMETERS]
-//#isInt? #name #dist.#min #max
-//all Ns are in number of haploid individuals
-1 $ANCNPOP1$ unif 0 1E9 output
-1 $ANCNPOP2$ unif 0 1E9 output
-1 $ANCNPOPTOT$ unif 0 1E9 output
-1 $TDIV1$ unif 100 1E7 output
-1 $TMIG$ unif 100 1E7 output
-0 $MIG$ logunif 0 0 output
-0 $MIG1$ logunif 0 0 output
-
-[RULES]
-$TMIG$ <= $TDIV1$
-
-[COMPLEX PARAMETERS]
-0 $NPOP1$ = $ANCNPOP1$/2
-0 $NPOP2$ = $ANCNPOP1$/2
-0 $RESIZE2$ = $ANCNPOP2$/$NPOP1$ output
-0 $RESIZE3$ = $ANCNPOPTOT$/$NPOP1$ output
-```
+The est file is the same across species: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus_single.est
 
 These files then will next be used to figure out the best likelihoods of our various scenarios (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_optimising).
