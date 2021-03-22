@@ -32,7 +32,7 @@ output <- rbind(output_full_reps,output_rest_of_lines)
 # Modifying some of the columns to give unique IDs, and to note the loci are monomorphic
 output[,2] <- c(1:dim(output)[1])
 output[,1] <- "Mono"
-output[,3] <- paste(output[,1],output[,2],sep="_")
+output <- output %>% mutate(ID=paste("Mono_",.[[2]],sep=""))
 
 # Converting temp to matrix
 temp <- as.matrix(temp)
