@@ -32,40 +32,34 @@ cat header_row.txt temp >> vcf_w_monomorphic.vcf
 ```
 monomorphic_vcf.R duplicates the variable data in the vcf file up to the number of monomorphic sites needed to be added, and then changes the calls to invariant, in order to match the patterns of missingness found over the variable sites.  
 
-Using this modified vcf file and the popfile (snippet below), we then use easySFS to generate the SFS. We run it twice, once profiling the vcf in order to assess the appropriate downprojection, and then generating the outfiles using the appropriate downprojection that maximizes the number of segregating sites.
+Using this modified vcf file and the popfile (links below), we then use easySFS to generate the SFS. We run it twice, once profiling the vcf in order to assess the appropriate downprojection, and then generating the outfiles using the appropriate downprojection that maximizes the number of segregating sites.
 ```
-#!/bin/bash -e
-#SBATCH -A uoo03004
-#SBATCH -J easySFS 
-#SBATCH --time 12:00:00
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -n 1
-#SBATCH --mem=10GB
-#SBATCH --chdir=/nesi/nobackup/uoo03004/bats_rats
-
 module load Miniconda3/4.8.2
 
-#conda create -n easySFS
+# commented lines only needed to be done once if code not run all in one go
+# conda create -n easySFS
 conda activate easySFS
-#conda install -c bioconda dadi pandas
+# conda install -c bioconda dadi pandas
 git clone https://github.com/isaacovercast/easySFS.git
 cd easySFS
 chmod 777 easySFS.py
-cd ..
 
 # Note, the population order for easySFS is the order that populations are encountered
 # in the popmap file. Make sure this is consistent between species to avoid getting
 # things the wrong way around
 
 # For Haplo
-# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
+cd /scale_wlg_nobackup/filesets/nobackup/uoo03004/bats_rats/22Mar21/haplo/fastsimcoal2_inputs
+
+easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
 
 # Selected values: N has the most segregating sites at 12, S has the most segregating sites at 42
 
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
 
 # For Bullimus
+cd /scale_wlg_nobackup/filesets/nobackup/uoo03004/bats_rats/22Mar21/bullimus/fastsimcoal2_inputs
+
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
 # output
 #Processing 2 populations - odict_keys(['N', 'S'])
