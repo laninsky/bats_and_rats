@@ -62,7 +62,26 @@ easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
 
 # For Bullimus
 # easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
+# output
+#Processing 2 populations - odict_keys(['N', 'S'])
+#
+#    Running preview mode. We will print out the results for # of segregating sites
+#    for multiple values of projecting down for each population. The dadi
+#    manual recommends maximizing the # of seg sites for projections, but also
+#    a balance must be struck between # of seg sites and sample size.
+#
+#    For each population you should choose the value of the projection that looks
+#    best and then rerun easySFS with the `--proj` flag.
+#    
+#N
+#(2, 1735)	(3, 2589)	(4, 3252)	(5, 3772)	(6, 4270)	(7, 4653)	(8, 5064)	(9, 5251)	(10, 5601)	(11, 5570)	(12, 5871)	(13, 5478)	(14, #5731)	(15, 4480)	(16, 4665)	
+#
+#
+S
+#(2, 1796)	(3, 2678)	(4, 3392)	(5, 4010)	(6, 4576)	(7, 5083)	(8, 5572)	(9, 5905)	(10, 6339)	(11, 6350)	(12, 6733)	(13, 6408)	(14, #6737)	(15, 6088)	(16, 6365)	(17, 5497)	(18, 5722)	(19, 4512)	(20, 4685)	(21, 3005)	(22, 3114)	
+# Selected values: N has the most segregating sites at 12, S has the most segregating sites at 14
 
+# easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --proj=12,14
 ```
 Hap_Popfile.txt snippet:
 ```
