@@ -55,7 +55,7 @@ easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
 
 # Selected values: N has the most segregating sites at 12, S has the most segregating sites at 42
 
-easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=42,12
+easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=12,42
 
 # For Bullimus
 cd /scale_wlg_nobackup/filesets/nobackup/uoo03004/bats_rats/22Mar21/bullimus/fastsimcoal2_inputs
