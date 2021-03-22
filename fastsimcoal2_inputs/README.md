@@ -52,6 +52,22 @@ chmod 777 easySFS.py
 cd /scale_wlg_nobackup/filesets/nobackup/uoo03004/bats_rats/22Mar21/haplo/fastsimcoal2_inputs
 
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --preview
+#Processing 2 populations - odict_keys(['N', 'S'])
+#
+#    Running preview mode. We will print out the results for # of segregating sites
+#    for multiple values of projecting down for each population. The dadi
+#    manual recommends maximizing the # of seg sites for projections, but also
+#    a balance must be struck between # of seg sites and sample size.
+#
+#    For each population you should choose the value of the projection that looks
+#    best and then rerun easySFS with the `--proj` flag.
+#    
+#N
+#(2, 2211)	(3, 3287)	(4, 4286)	(5, 5208)	(6, 6114)	(7, 6819)	(8, 7643)	(9, 7953)	(10, 8681)	(11, 8550)	(12, 9181)	(13, 8512)	(14, 9035)	(15, 7122)	(16, 7498)	
+#
+#
+#S
+#(2, 1398)	(3, 2083)	(4, 2742)	(5, 3378)	(6, 4005)	(7, 4619)	(8, 5220)	(9, 5802)	(10, 6380)	(11, 6943)	(12, 7499)	(13, 8045)	(14, 8582)	(15, 9109)	(16, 9628)	(17, 10136)	(18, 10638)	(19, 11131)	(20, 11616)	(21, 12093)	(22, 12564)	(23, 13027)	(24, 13484)	(25, 13929)	(26, 14371)	(27, 14802)	(28, 15232)	(29, 15649)	(30, 16066)	(31, 16461)	(32, 16866)	(33, 17220)	(34, 17612)	(35, 17934)	(36, 18315)	(37, 18504)	(38, 18872)	(39, 18853)	(40, 19204)	(41, 19051)	(42, 19386)	(43, 19067)	(44, 19383)	(45, 18885)	(46, 19180)	(47, 18604)	(48, 18880)	(49, 18095)	(50, 18352)	(51, 17024)	(52, 17254)	(53, 15401)	(54, 15600)	(55, 12120)	(56, 12271)
 
 # Selected values: N has the most segregating sites at 12, S has the most segregating sites at 42
 
@@ -61,7 +77,6 @@ easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p Hap_Popfile.txt -a --proj=12,42
 cd /scale_wlg_nobackup/filesets/nobackup/uoo03004/bats_rats/22Mar21/bullimus/fastsimcoal2_inputs
 
 easySFS/easySFS.py -i vcf_w_monomorphic.vcf -p pop.txt -a --preview
-# output
 #Processing 2 populations - odict_keys(['N', 'S'])
 #
 #    Running preview mode. We will print out the results for # of segregating sites
