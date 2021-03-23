@@ -161,4 +161,4 @@ for i in fastsimcoal_*; do grep -v "^$" $i/*/*.lhoods | tail -n 1 >> temp; done
 sort -rnk 1 temp > likelihoods.txt
 rm temp
 ```
-When summarizing the final outputs, note that NPOP1 refers to S in Haplo, and N in Bullimus due to how easySFS sets up SFS files based on sample order in the population file. The final likelihoods for each scenario can then be used with AIC to chose the optimal demographic scenario. With this optimal scenario, uncertainty can be modeled using bootstrapping (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
+The final likelihoods for each scenario can then be used with AIC to chose the optimal demographic scenario. With this optimal scenario, uncertainty can be modeled using bootstrapping (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
