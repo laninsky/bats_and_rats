@@ -105,11 +105,12 @@ Downprojection reduces the total number of sites in the output SFS, so to work o
 head -n 3 vcf_w_monomorphic_MSFS.obs | tail -n 1 | sed 's/ /\+/g' | bc
 ```
 
-The output for Haplo was `1271122`. When divided by the total number of loci in our dataset, `16376`
+The output for Haplo was `1271122`. When divided by the total number of loci in our dataset, `16376` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `77.62 bp` (we'll be rounding to `78`). We'll need this number when we eventually get to bootstrapping our most likely demographic scenario (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
 
-The output for Bullimus was `967993`. When divided by the total number of loci in our dataset, `13533` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `71.52 bp` (we'll be rounding to `72`). We'll need this number when we eventually get to bootstrapping our most likely demographic scenario (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_bootstrapping).
+The output for Bullimus was `967993`. When divided by the total number of loci in our dataset, `13533` (first line of fastsimcoal_inputs), this gives an average length of the DNA fragments for our fastsimcoal2 analysis of `71.52 bp` (we'll be rounding to `72`). 
 
 Based on these values, this is the tpl file generated for haplo:
+https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/haplo.tpl
 
 Based on these values, this is the tpl file generated for bullimus:
 https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus.tpl
