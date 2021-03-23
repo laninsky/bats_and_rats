@@ -153,9 +153,9 @@ fsc2_prefix=bullimus_ancestral_migration
 
 mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
 cp ${fsc2_prefix}.par fastsimcoal_${SLURM_ARRAY_TASK_ID}/
-cp {$fsc2_prefix}_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
+cp ${fsc2_prefix}_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
-/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i {$fsc2_prefix}.par -n 1000000 -m --multiSFS -L 40 -q -c 24 -B 24 -x > fastsimcoal.log
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i ${fsc2_prefix}.par -n 1000000 -m --multiSFS -L 40 -q -c 24 -B 24 -x > fastsimcoal.log
 ```
 After the final likelihood run is completed, the "best" likelihood for the run can be summarized by:
 ```
