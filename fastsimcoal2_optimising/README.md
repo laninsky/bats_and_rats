@@ -45,7 +45,7 @@ cp $fsc2_prefix.est fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cp $fsc2_prefix.tpl fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cp ${fsc2_prefix}_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
-/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t $fsc2_prefix.tpl -e $fsc2_prefix.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -t $fsc2_prefix.tpl -e $fsc2_prefix.est -n 100000 -m -M --multiSFS -L 40 -q -c 24 -B 24 -x > fastsimcoal.log
 ```
 
 After the 50 replicates are done, the following code can be used to summarise the highest likelihood runs from within each replicate:
@@ -153,7 +153,7 @@ mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
 cp haplo_ongoing_migration.par fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cp haplo_ongoing_migration_MSFS.obs fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cd fastsimcoal_${SLURM_ARRAY_TASK_ID}
-/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 1000000 -m --multiSFS -L 40 -q -c 24 -B 24 -x > ${MOAB_JOBARRAYINDEX}.log
+/nesi/nobackup/uoo03004/bats_rats/fsc26_linux64/fsc26 -i haplo_ongoing_migration.par -n 1000000 -m --multiSFS -L 40 -q -c 24 -B 24 -x > fastsimcoal.log
 ```
 After the final likelihood run is completed, the "best" likelihood for the run can be summarized by:
 ```
