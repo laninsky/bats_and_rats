@@ -84,7 +84,7 @@ fastsimcoal.sh template:
 #SBATCH -D 
 #SBATCH --array=1-50
 
-
+fsc2_input=haplo_ongoing_migration
 mkdir fastsimcoal_${SLURM_ARRAY_TASK_ID}
 cp ${fsc2_input}.est fastsimcoal_${SLURM_ARRAY_TASK_ID}/
 cp ${fsc2_input}.tpl fastsimcoal_${SLURM_ARRAY_TASK_ID}/
@@ -99,6 +99,15 @@ for i in `seq 1 20`;
   do head -n 8 fastsimcoal.sh > ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
   directory_start=`head -n 9 fastsimcoal.sh | tail -n 1`;
   echo $directory_start "/nesi/nobackup/uoo03004/bats_rats/22Mar21/haplo/${fsc2_input}/bootstrapping/${fsc2_input}/${fsc2_input}_${i}/" >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
+  tail -n 8 fastsimcoal.sh >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
+  sbatch ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
+done
+
+fsc2_input=bullimus_ancestral_migration
+for i in `seq 1 20`;
+  do head -n 8 fastsimcoal.sh > ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
+  directory_start=`head -n 9 fastsimcoal.sh | tail -n 1`;
+  echo $directory_start "/nesi/nobackup/uoo03004/bats_rats/22Mar21/bullimus/${fsc2_input}/bootstrapping/${fsc2_input}/${fsc2_input}_${i}/" >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
   tail -n 8 fastsimcoal.sh >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
   sbatch ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
 done
