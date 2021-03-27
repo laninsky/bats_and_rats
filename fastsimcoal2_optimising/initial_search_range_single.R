@@ -15,62 +15,62 @@ temp_est <- readLines(paste(original_search_range_folder,"/",est_file_name,sep="
 # Creating an object to record whether we need to recreate an est file or not
 create_new_est_file <- FALSE
 
-# Seeing whether $ANCNPOP1$ is greater than the upper bound of the initial search range
+# Seeing whether $ANCNPOP1$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[7]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,2]) | as.numeric(likelihoods[1,2]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,2]) | as.numeric(likelihoods[1,2]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $ANCNPOP2$ is greater than the upper bound of the initial search range
+# Seeing whether $ANCNPOP2$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[8]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,3]) | as.numeric(likelihoods[1,3]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,3]) | as.numeric(likelihoods[1,3]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $ANCNPOPTOT$ is greater than the upper bound of the initial search range
+# Seeing whether $ANCNPOPTOT$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[9]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,4]) | as.numeric(likelihoods[1,4]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,4]) | as.numeric(likelihoods[1,4]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $TDIV$ is greater than the upper bound of the initial search range
+# Seeing whether $TDIV$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[10]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,5]) | as.numeric(likelihoods[1,5]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,5]) | as.numeric(likelihoods[1,5]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $TMIG$ is greater than the upper bound of the initial search range
+# Seeing whether $TMIG$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[11]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,6]) | as.numeric(likelihoods[1,6]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,6]) | as.numeric(likelihoods[1,6]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $TDIV1$ is greater than the upper bound of the initial search range
+# Seeing whether $TDIV1$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[12]," "))
-if (as.numeric(temp[5]) < as.numeric(likelihoods[1,7]) | as.numeric(likelihoods[1,7]) < as.numeric(temp[4])*100) {
+if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,7]) | as.numeric(likelihoods[1,7]) <= as.numeric(temp[4])*100) {
   create_new_est_file <- TRUE
 }
 
-# Seeing whether $MIG$ is greater than the upper bound of the initial search range
+# Seeing whether $MIG$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[12]," "))
 if (!(temp[4]==0 & temp[5]==0)) {
-  if (as.numeric(temp[5]) < as.numeric(likelihoods[1,7]) | as.numeric(likelihoods[1,7]) < as.numeric(temp[4])*100) {
+  if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,7]) | as.numeric(likelihoods[1,7]) <= as.numeric(temp[4])*100) {
     create_new_est_file <- TRUE
   }
 }
 
-# Seeing whether $MIG1$ is greater than the upper bound of the initial search range
+# Seeing whether $MIG1$ is greater than or equal to the upper bound of the initial search range
 # or within two orders of magnitude of the lower bound of the initial search range.
 temp <- unlist(strsplit(temp_est[13]," "))
 if (!(temp[4]==0 & temp[5]==0)) {
-  if (as.numeric(temp[5]) < as.numeric(likelihoods[1,8]) | as.numeric(likelihoods[1,8]) < as.numeric(temp[4])*100) {
+  if (as.numeric(temp[5]) <= as.numeric(likelihoods[1,8]) | as.numeric(likelihoods[1,8]) <= as.numeric(temp[4])*100) {
     create_new_est_file <- TRUE
   }
 }
@@ -79,31 +79,31 @@ if (create_new_est_file) {
   cat("Some parameter estimates are greater than the upper bound of the initial search range\nor within two orders of magnitude of the lower bound of the initial search range.\nA new est file has been written out to start again\n")
   # Updating $ANCNPOP1$
   temp <- unlist(strsplit(temp_est[7]," "))
-  temp[4] <- round(min(likelihoods[,2])/100)
+  temp[4] <- floor(min(likelihoods[,2])/100)
   temp[5] <- max(likelihoods[,2])
   temp_est[7] <- paste(temp,collapse=" ")
 
   # Updating $ANCNPOP2$
   temp <- unlist(strsplit(temp_est[8]," "))
-  temp[4] <- round(min(likelihoods[,3])/100)
+  temp[4] <- floor(min(likelihoods[,3])/100)
   temp[5] <- max(likelihoods[,3])
   temp_est[8] <- paste(temp,collapse=" ")
 
 # Updating $ANCPOPTOT$
   temp <- unlist(strsplit(temp_est[9]," "))
-  temp[4] <- round(min(likelihoods[,4])/100)
+  temp[4] <- floor(min(likelihoods[,4])/100)
   temp[5] <- max(likelihoods[,4])
   temp_est[9] <- paste(temp,collapse=" ")
 
   # Updating $TDIV1$
   temp <- unlist(strsplit(temp_est[10]," "))
-  temp[4] <- round(min(likelihoods[,5])/100)
+  temp[4] <- floor(min(likelihoods[,5])/100)
   temp[5] <- max(likelihoods[,5])
   temp_est[10] <- paste(temp,collapse=" ")
 
   # Updating $TMIG$
   temp <- unlist(strsplit(temp_est[11]," "))
-  temp[4] <- round(min(likelihoods[,6])/100)
+  temp[4] <- floor(min(likelihoods[,6])/100)
   temp[5] <- max(likelihoods[,6])
   temp_est[11] <- paste(temp,collapse=" ")
 
