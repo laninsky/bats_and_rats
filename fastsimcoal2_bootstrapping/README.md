@@ -125,7 +125,7 @@ From within the `bootstrapping` parent folder, we run:
 ```
 fsc2_input=haplo_ongoing_migration
 for j in `seq 1 100`;
-  do for i in ${fsc2_input}/${fsc2_input}n_${j}/fastsimcoal_*; 
+  do for i in ${fsc2_input}/${fsc2_input}_${j}/fastsimcoal_*; 
     do grep -v "^$" $i/*/*.brent_lhoods | grep -v "\-\-\-\-\-" | grep -v "nan" | sort -nk 14 | tail -n 2 | head -n 1 >> ${fsc2_input}/${fsc2_input}_${j}/temp;
   done;
   sort -rnk 14 ${fsc2_input}/${fsc2_input}_${j}/temp | head -n 1 >> likelihoods.txt;
