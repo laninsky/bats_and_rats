@@ -45,7 +45,7 @@ bootstrap par file:
 //Per chromosome: Number of contiguous linkage Block: a block is a set of contiguous loci
 1
 //per Block:data type, number of loci, per gen recomb and mut rates
-DNA 91 0 1.18E-08 OUTEXP
+DNA 78 0 1.18E-08 OUTEXP
 ```
 The replicate SFS files will then be generated using the following code
 ```
