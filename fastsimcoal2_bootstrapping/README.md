@@ -99,7 +99,7 @@ for i in `seq 1 20`;
   do head -n 8 fastsimcoal.sh > ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
   directory_start=`head -n 9 fastsimcoal.sh | tail -n 1`;
   echo $directory_start "/nesi/nobackup/uoo03004/bats_rats/22Mar21/haplo/${fsc2_input}/bootstrapping/${fsc2_input}/${fsc2_input}_${i}/" >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
-  tail -n 8 fastsimcoal.sh >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
+  tail -n 9 fastsimcoal.sh >> ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
   sbatch ${fsc2_input}/${fsc2_input}_${i}/fastsimcoal.sh;
 done
 
