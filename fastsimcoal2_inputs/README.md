@@ -124,6 +124,6 @@ Strict isolation est file: https://github.com/laninsky/bats_and_rats/tree/master
 The final scenario we want to model needs a different tpl and est file. This scenario is "single population" i.e. we are only modeling population size changes and considering N and S as panmictic.  
 single population bullimus tpl file:  https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus_single.tpl
 
-The est file is the same across species: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/bullimus_single.est
+The est file is the same across species: https://github.com/laninsky/bats_and_rats/blob/master/fastsimcoal2_inputs/single.est
 
 These files then will next be used to figure out the best likelihoods of our various scenarios (https://github.com/laninsky/bats_and_rats/tree/master/fastsimcoal2_optimising).
